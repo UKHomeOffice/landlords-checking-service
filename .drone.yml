@@ -42,6 +42,19 @@ acceptance_tests: &acceptance_tests
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:v1.12.3-focal
 
+sonar_scanner: &sonar_scanner
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
+  commands:
+    - sonar-scanner -Dproject.settings=./sonar-project.properties
+
+acceptance_tests: &acceptance_tests
+  pull: if-not-exists
+  image: mcr.microsoft.com/playwright:v1.12.3-focal
+  environment:
+    CUCUMBER_PUBLISH_TOKEN:
+      from_secret: CUCUMBER_PUBLISH_TOKEN
+
 steps:
   - name: clone_repos
     image: alpine/git
