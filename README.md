@@ -1,5 +1,5 @@
-## LCS
-Landlords Make a Report (lcs) form built using the HOF (Home Office Forms) Framework.
+#### LCS
+Landlords-Checking-Service (lcs) form built using the HOF (Home Office Forms) Framework.
 
 ## Getting Started
 ### Prerequisites
