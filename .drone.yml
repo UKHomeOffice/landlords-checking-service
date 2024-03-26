@@ -12,7 +12,7 @@ environment:
   PRODUCTION_URL: www.home-office-forms-demo.homeoffice.gov.uk
   IMAGE_URL: quay.io/ukhomeofficedigital
   IMAGE_REPO: lcs
-  GIT_REPO: UKHomeOffice/lcs
+  GIT_REPO: UKHomeOffice/landlords-checking-service
   HOF_CONFIG: hof-services-config/Landlords-Checking-Service
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
@@ -47,13 +47,6 @@ sonar_scanner: &sonar_scanner
   image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
   commands:
     - sonar-scanner -Dproject.settings=./sonar-project.properties
-
-acceptance_tests: &acceptance_tests
-  pull: if-not-exists
-  image: mcr.microsoft.com/playwright:v1.12.3-focal
-  environment:
-    CUCUMBER_PUBLISH_TOKEN:
-      from_secret: CUCUMBER_PUBLISH_TOKEN
 
 steps:
   - name: clone_repos
@@ -140,11 +133,11 @@ steps:
         cpu: 1000
         memory: 1024Mi
     environment:
-      IMAGE_NAME: landlords-checking-service:${DRONE_COMMIT_SHA}
+      IMAGE_NAME: lcs:${DRONE_COMMIT_SHA}
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
-      #ALLOW_CVE_LIST_FILE: hof-services-config/Firearms_Licensing/trivy-cve-exceptions.txt
+      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords-Checking-Service/trivy-cve-exceptions.txt
     when:
       event:
       - pull_request
