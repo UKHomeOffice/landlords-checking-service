@@ -7,13 +7,13 @@ environment:
   APP_NAME: lcs
   PROD_ENV: sas-lcs-prod
   BRANCH_ENV: sas-lcs-branch
-  #STG_ENV: sas-lcs-stg
+  STG_ENV: sas-lcs-stg
   UAT_ENV: sas-lcs-uat
   PRODUCTION_URL: www.home-office-forms-demo.homeoffice.gov.uk
   IMAGE_URL: quay.io/ukhomeofficedigital
   IMAGE_REPO: lcs
   GIT_REPO: UKHomeOffice/landlords-checking-service
-  HOF_CONFIG: hof-services-config/Landlords-Checking-Service
+  HOF_CONFIG: hof-services-config/Landlords_Checking_Service
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
 
@@ -94,6 +94,14 @@ steps:
         include:
           - master
       event: push
+      
+  - name: sonar_scanner_deploy
+    <<: *sonar_scanner
+    when:
+      branch:
+        include:
+          - master
+      event: push
 
   - name: build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
@@ -137,7 +145,7 @@ steps:
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords-Checking-Service/trivy-cve-exceptions.txt
+      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
     when:
       event:
       - pull_request
@@ -203,11 +211,21 @@ steps:
       branch: master
       event: pull_request
 
+  - name: sonar_scanner_branch
+    <<: *sonar_scanner
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
  # Snyk security scans which run after branch deployment to prevent blocking of PR UAT tests
   - name: snyk_scan
     pull: if-not-exists
-    image: node:18
+    image: node:lts
     environment:
+      NOTIFY_STUB: true
       SNYK_TOKEN:
         from_secret: snyk_token
     commands:
@@ -219,6 +237,7 @@ steps:
           - feature/*
       event: pull_request
 
+# Deploy to master UAT environment
   - name: deploy_to_uat
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -233,16 +252,16 @@ steps:
       branch: master
       event: push
 
-  - name: acceptance_tests_uat
-    <<: *acceptance_tests
-    commands:
-    - export ACCEPTANCE_HOST_NAME=https://$${APP_NAME}.uat.internal.sas-notprod.homeoffice.gov.uk
-    - npx playwright install
-    - npm run test:acceptance
-    when:
-      branch: master
-      event: push
-
+  # - name: acceptance_tests_uat
+  #   <<: *acceptance_tests
+  #   commands:
+  #   - export ACCEPTANCE_HOST_NAME=https://$${APP_NAME}.uat.internal.sas-notprod.homeoffice.gov.uk
+  #   - npx playwright install
+  #   - npm run test:acceptance
+  #   when:
+  #     branch: master
+  #     event: push
+      
   # Get pull request branch so correct PR UAT environment is torn down in the tear_down_branch step that follows
   - name: get_pr_branch
     pull: if-not-exists
@@ -260,6 +279,19 @@ steps:
     when:
       branch: master
       event: push
+
+  - name: clone_repos_prod
+    image: alpine/git
+    environment:
+      DRONE_GIT_USERNAME:
+        from_secret: drone_git_username
+      DRONE_GIT_TOKEN:
+        from_secret: drone_git_token
+    commands:
+      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+    when:
+      target: PROD
+      event: promote
 
   # Tear down pull request UAT environment
   - name: tear_down_branch
@@ -346,7 +378,7 @@ steps:
 
   - name: cron_snyk_scan
     pull: if-not-exists
-    image: node:18
+    image: node:lts
     environment:
       SNYK_TOKEN:
         from_secret: snyk_token
@@ -361,11 +393,11 @@ steps:
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
     environment:
-      IMAGE_NAME: ukvi-complaints:${DRONE_COMMIT_SHA}
+      IMAGE_NAME: lcs:${DRONE_COMMIT_SHA}
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/UKVI_Complaints/trivy-cve-exceptions.txt
+      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
     when:
       cron: security_scans
       event: cron
@@ -379,12 +411,29 @@ steps:
       failure: ignore
       icon_url: http://readme.drone.io/0.5/logo_dark.svg
       icon.url: http://readme.drone.io/0.5/logo_dark.svg
-      template: "CRON Job {{build.deployTo}} of LCS form has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+      template: "CRON Job {{build.deployTo}} of Landlords Checking Service form has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
       username: Drone
       webhook:
         from_secret: slack_webhook
     when:
       cron: tear_down_pr_envs
+      event: cron
+      status: failure
+
+  - name: cron_notify_slack_security_scans
+    pull: if-not-exists
+    image: plugins/slack
+    settings:
+      channel: sas-build
+      failure: ignore
+      icon_url: http://readme.drone.io/0.5/logo_dark.svg
+      icon.url: http://readme.drone.io/0.5/logo_dark.svg
+      template: "CRON Job {{build.deployTo}} of Landlords Make A Report Form has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+      username: Drone
+      webhook:
+        from_secret: slack_webhook
+    when:
+      cron: security_scans
       event: cron
       status: failure
 
