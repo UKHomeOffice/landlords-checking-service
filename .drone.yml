@@ -21,7 +21,6 @@ trigger:
   branch:
     - feature/*
     - master
-    - TLF-74
 
 linting: &linting
   pull: if-not-exists
