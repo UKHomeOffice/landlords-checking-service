@@ -2,7 +2,6 @@
 kind: pipeline
 name: default
 type: kubernetes
-
 environment:
   APP_NAME: lcs
   PROD_ENV: sas-lcs-prod
@@ -16,55 +15,51 @@ environment:
   HOF_CONFIG: hof-services-config/Landlords_Checking_Service
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
-
 trigger:
   branch:
     - feature/*
     - master
-
-linting: &linting
+linting:
   pull: if-not-exists
   image: node:18
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
     - yarn run test:lint
-
-unit_tests: &unit_tests
+unit_tests:
   pull: if-not-exists
   image: node:18
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
     - yarn run test:unit
-
-acceptance_tests: &acceptance_tests
+acceptance_tests:
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:v1.12.3-focal
-
-sonar_scanner: &sonar_scanner
+sonar_scanner:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
   commands:
     - sonar-scanner -Dproject.settings=./sonar-project.properties
-
 steps:
   - name: clone_repos
-     image: alpine/git
-     environment:
-       DRONE_GIT_USERNAME:
-         from_secret: drone_git_username
-       DRONE_GIT_TOKEN:
-         from_secret: drone_git_token
-     commands:
-       - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
-     when:
-       branch:
-         include:
-         - master
-         - feature/*
-       event: [push, pull_request]
-
+    image: alpine/git
+    environment:
+      DRONE_GIT_USERNAME:
+        from_secret: drone_git_username
+      DRONE_GIT_TOKEN:
+        from_secret: drone_git_token
+    commands:
+      - git clone
+        https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event:
+        - push
+        - pull_request
   - name: setup_deploy
     pull: if-not-exists
     image: node:18.12.0
@@ -76,48 +71,61 @@ steps:
     when:
       branch:
         include:
-        - master
-      event: [push, pull_request]
-
+          - master
+      event:
+        - push
+        - pull_request
   - name: linting_deploy
-    <<: *linting
+    pull: if-not-exists
+    image: node:18
+    environment:
+      NOTIFY_KEY: USE_MOCK
+    commands:
+      - yarn run test:lint
     when:
       branch:
         include:
           - master
       event: push
-
   - name: unit_tests_deploy
-    <<: *unit_tests
+    pull: if-not-exists
+    image: node:18
+    environment:
+      NOTIFY_KEY: USE_MOCK
+    commands:
+      - yarn run test:unit
     when:
       branch:
         include:
           - master
       event: push
-
   - name: sonar_scanner_deploy
-    <<: *sonar_scanner
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
+    commands:
+      - sonar-scanner -Dproject.settings=./sonar-project.properties
     when:
       branch:
         include:
           - master
       event: push
-
   - name: build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     environment:
       DOCKER_PASSWORD:
         from_secret: DOCKER_PASSWORD
     commands:
-      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n
+        + 1 )); sleep 1; done
       - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
     volumes:
       - name: dockersock
         path: /var/run
     when:
       branch: master
-      event: [push, pull_request]
-
+      event:
+        - push
+        - pull_request
   - name: image_to_quay
     pull: if-not-exists
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
@@ -125,14 +133,15 @@ steps:
       DOCKER_PASSWORD:
         from_secret: DOCKER_PASSWORD
     commands:
-    - docker login -u="ukhomeofficedigital+lcs" -p=$${DOCKER_PASSWORD} quay.io
-    - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
-    - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+      - docker login -u="ukhomeofficedigital+lcs" -p=$${DOCKER_PASSWORD} quay.io
+      - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+        $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+      - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
     when:
       branch: master
-      event: [push, pull_request]
-
-  # Trivy Security Scannner
+      event:
+        - push
+        - pull_request
   - name: scan-image
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
@@ -148,16 +157,13 @@ steps:
       ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
     when:
       event:
-      - pull_request
-      - push
-      - tag
-
-  # Deploy to pull request UAT environment
+        - pull_request
+        - push
+        - tag
   - name: deploy_to_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
     environment:
-      # NOTIFY_STUB: stub
       KUBE_SERVER:
         from_secret: kube_server_dev
       KUBE_TOKEN:
@@ -167,7 +173,6 @@ steps:
     when:
       branch: master
       event: pull_request
-
   - name: setup_branch
     pull: if-not-exists
     image: node:18
@@ -182,45 +187,54 @@ steps:
           - master
           - feature/*
       event: pull_request
-
   - name: linting_branch
-    <<: *linting
-    when:
-      branch:
-        include:
-          - master
-          - feature/*
-      event: pull_request
-
-  - name: unit_tests_branch
-    <<: *unit_tests
-    when:
-      branch:
-        include:
-          - master
-          - feature/*
-      event: pull_request
-
-  - name: acceptance_tests_branch
-    <<: *acceptance_tests
+    pull: if-not-exists
+    image: node:18
+    environment:
+      NOTIFY_KEY: USE_MOCK
     commands:
-      - export ACCEPTANCE_HOST_NAME=https://$${APP_NAME}-$${DRONE_SOURCE_BRANCH}.$${BRANCH_ENV}.homeoffice.gov.uk
+      - yarn run test:lint
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+  - name: unit_tests_branch
+    pull: if-not-exists
+    image: node:18
+    environment:
+      NOTIFY_KEY: USE_MOCK
+    commands:
+      - yarn run test:unit
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+  - name: acceptance_tests_branch
+    pull: if-not-exists
+    image: mcr.microsoft.com/playwright:v1.12.3-focal
+    commands:
+      - export
+        ACCEPTANCE_HOST_NAME=https://$${APP_NAME}-$${DRONE_SOURCE_BRANCH}.$${BRANCH_ENV}.homeoffice.gov.uk
       - npx playwright install
       - npm run test:acceptance
     when:
       branch: master
       event: pull_request
-
   - name: sonar_scanner_branch
-    <<: *sonar_scanner
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
+    commands:
+      - sonar-scanner -Dproject.settings=./sonar-project.properties
     when:
       branch:
         include:
           - master
           - feature/*
       event: pull_request
-
-  # Snyk  security scans which run after branch deployment to prevent blocking of PR UAT tests.
   - name: snyk_scan
     pull: if-not-exists
     image: node:lts
@@ -236,8 +250,6 @@ steps:
           - master
           - feature/*
       event: pull_request
-
-## Deploy to master UAT environment
   - name: deploy_to_uat
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -251,8 +263,6 @@ steps:
     when:
       branch: master
       event: push
-
-  # Get pull request branch so correct PR UAT environment is torn down in the tear_down_branch step that follows
   - name: get_pr_branch
     pull: if-not-exists
     image: drone/cli:alpine@sha256:14409f7f7247befb9dd2effdb2f61ac40d1f5fbfb1a80566cf6f2f8d21f3be11
@@ -265,11 +275,12 @@ steps:
       - name: dockersock
         path: /root/.dockersock
     commands:
-      - drone build info $GIT_REPO $DRONE_BUILD_NUMBER --format {{.Message}} | grep -o '[^ ]\+$' -m1 | sed 's|UKHomeOffice/||g' | tr '[:upper:]' '[:lower:]' | tr '/' '-' > /root/.dockersock/branch_name.txt
+      - drone build info $GIT_REPO $DRONE_BUILD_NUMBER --format {{.Message}} |
+        grep -o '[^ ]\+$' -m1 | sed 's|UKHomeOffice/||g' | tr '[:upper:]'
+        '[:lower:]' | tr '/' '-' > /root/.dockersock/branch_name.txt
     when:
       branch: master
       event: push
-
   - name: clone_repos_prod
     image: alpine/git
     environment:
@@ -278,12 +289,11 @@ steps:
       DRONE_GIT_TOKEN:
         from_secret: drone_git_token
     commands:
-      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+      - git clone
+        https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
     when:
       target: PROD
       event: promote
-
-  # Tear down pull request UAT environment
   - name: tear_down_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -300,8 +310,6 @@ steps:
     when:
       branch: master
       event: push
-
-    # Deploy to Production environment
   - name: deploy_to_prod
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -315,9 +323,9 @@ steps:
     when:
       target: PROD
       event: promote
-
   - name: acceptance_tests_deploy
-    <<: *acceptance_tests
+    pull: if-not-exists
+    image: mcr.microsoft.com/playwright:v1.12.3-focal
     commands:
       - export ACCEPTANCE_HOST_NAME=https://$${PRODUCTION_URL}
       - npx playwright install
@@ -325,8 +333,6 @@ steps:
     when:
       branch: master
       event: push
-
-  # CRON job step that tears down our pull request UAT environments
   - name: cron_tear_down
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -340,8 +346,6 @@ steps:
     when:
       cron: tear_down_pr_envs
       event: cron
-
-  # # CRON job steps that runs security scans using Snyk & Trivy
   - name: cron_clone_repos
     image: alpine/git
     environment:
@@ -350,11 +354,11 @@ steps:
       DRONE_GIT_TOKEN:
         from_secret: drone_git_token
     commands:
-      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+      - git clone
+        https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
     when:
       cron: security_scans
       event: cron
-
   - name: cron_build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     commands:
@@ -365,7 +369,6 @@ steps:
     when:
       cron: security_scans
       event: cron
-
   - name: cron_snyk_scan
     pull: if-not-exists
     image: node:lts
@@ -379,7 +382,6 @@ steps:
     when:
       cron: security_scans
       event: cron
-
   - name: cron_trivy_scan
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
@@ -392,8 +394,6 @@ steps:
     when:
       cron: security_scans
       event: cron
-
-  # Slack notification upon a CRON job fail
   - name: cron_notify_slack_tear_down_pr_envs
     pull: if-not-exists
     image: plugins/slack
@@ -402,7 +402,23 @@ steps:
       failure: ignore
       icon_url: http://readme.drone.io/0.5/logo_dark.svg
       icon.url: http://readme.drone.io/0.5/logo_dark.svg
-      template: "CRON Job {{build.deployTo}} of Landlords Checking Service form has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+      template: >
+        CRON Job {{build.deployTo}} of Landlords Checking Service form has
+        {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success
+        build.status}}
+          :thumbsup: :thumbsup: :thumbsup:
+        {{else}}
+          :x: :x: :x:
+        {{/success}} Author: {{build.author}}
+
+
+        Duration: {{since job.started}}
+
+
+        Job: <{{build.link}}|#{{build.number}}>
+
+
+        Commit: {{build.commit}}
       username: Drone
       webhook:
         from_secret: slack_webhook
@@ -410,7 +426,6 @@ steps:
       cron: tear_down_pr_envs
       event: cron
       status: failure
-
   - name: cron_notify_slack_security_scans
     pull: if-not-exists
     image: plugins/slack
@@ -419,7 +434,23 @@ steps:
       failure: ignore
       icon_url: http://readme.drone.io/0.5/logo_dark.svg
       icon.url: http://readme.drone.io/0.5/logo_dark.svg
-      template: "CRON Job {{build.deployTo}} of Landlords Checking Service Form has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+      template: >
+        CRON Job {{build.deployTo}} of Landlords Checking Service Form has
+        {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success
+        build.status}}
+         :thumbsup: :thumbsup: :thumbsup:
+        {{else}}
+         :x: :x: :x:
+        {{/success}} Author: {{build.author}}
+
+
+        Duration: {{since job.started}}
+
+
+        Job: <{{build.link}}|#{{build.number}}>
+
+
+        Commit: {{build.commit}}
       username: Drone
       webhook:
         from_secret: slack_webhook
@@ -427,12 +458,9 @@ steps:
       cron: security_scans
       event: cron
       status: failure
-
 services:
   - name: docker
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-
-  # Redis session setup in background so integration tests can run
   - name: session
     image: redis
     volumes:
@@ -441,5 +469,3 @@ services:
 volumes:
   - name: dockersock
     temp: {}
-
-...
