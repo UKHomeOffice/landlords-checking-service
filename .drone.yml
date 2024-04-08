@@ -15,10 +15,12 @@ environment:
   HOF_CONFIG: hof-services-config/Landlords_Checking_Service
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
+
 trigger:
   branch:
     - feature/*
     - master
+
 linting:
   pull: if-not-exists
   image: node:18
@@ -26,6 +28,7 @@ linting:
     NOTIFY_KEY: USE_MOCK
   commands:
     - yarn run test:lint
+
 unit_tests:
   pull: if-not-exists
   image: node:18
@@ -33,14 +36,17 @@ unit_tests:
     NOTIFY_KEY: USE_MOCK
   commands:
     - yarn run test:unit
+
 acceptance_tests:
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:v1.12.3-focal
+
 sonar_scanner:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
   commands:
     - sonar-scanner -Dproject.settings=./sonar-project.properties
+
 steps:
   - name: clone_repos
     image: alpine/git
@@ -60,6 +66,7 @@ steps:
       event:
         - push
         - pull_request
+        
   - name: setup_deploy
     pull: if-not-exists
     image: node:18.12.0
@@ -75,6 +82,7 @@ steps:
       event:
         - push
         - pull_request
+        
   - name: linting_deploy
     pull: if-not-exists
     image: node:18
@@ -87,6 +95,7 @@ steps:
         include:
           - master
       event: push
+      
   - name: unit_tests_deploy
     pull: if-not-exists
     image: node:18
@@ -99,6 +108,7 @@ steps:
         include:
           - master
       event: push
+      
   - name: sonar_scanner_deploy
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
@@ -109,6 +119,7 @@ steps:
         include:
           - master
       event: push
+      
   - name: build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     environment:
@@ -126,6 +137,7 @@ steps:
       event:
         - push
         - pull_request
+        
   - name: image_to_quay
     pull: if-not-exists
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
@@ -142,6 +154,7 @@ steps:
       event:
         - push
         - pull_request
+        
   - name: scan-image
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
@@ -160,6 +173,7 @@ steps:
         - pull_request
         - push
         - tag
+        
   - name: deploy_to_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -173,6 +187,7 @@ steps:
     when:
       branch: master
       event: pull_request
+      
   - name: setup_branch
     pull: if-not-exists
     image: node:18
@@ -187,6 +202,7 @@ steps:
           - master
           - feature/*
       event: pull_request
+      
   - name: linting_branch
     pull: if-not-exists
     image: node:18
@@ -200,6 +216,7 @@ steps:
           - master
           - feature/*
       event: pull_request
+      
   - name: unit_tests_branch
     pull: if-not-exists
     image: node:18
@@ -213,6 +230,7 @@ steps:
           - master
           - feature/*
       event: pull_request
+      
   - name: acceptance_tests_branch
     pull: if-not-exists
     image: mcr.microsoft.com/playwright:v1.12.3-focal
@@ -224,6 +242,7 @@ steps:
     when:
       branch: master
       event: pull_request
+      
   - name: sonar_scanner_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
@@ -235,6 +254,7 @@ steps:
           - master
           - feature/*
       event: pull_request
+      
   - name: snyk_scan
     pull: if-not-exists
     image: node:lts
@@ -250,6 +270,7 @@ steps:
           - master
           - feature/*
       event: pull_request
+      
   - name: deploy_to_uat
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -263,24 +284,7 @@ steps:
     when:
       branch: master
       event: push
-  - name: get_pr_branch
-    pull: if-not-exists
-    image: drone/cli:alpine@sha256:14409f7f7247befb9dd2effdb2f61ac40d1f5fbfb1a80566cf6f2f8d21f3be11
-    environment:
-      DRONE_SERVER:
-        from_secret: drone_server
-      DRONE_TOKEN:
-        from_secret: drone_token
-    volumes:
-      - name: dockersock
-        path: /root/.dockersock
-    commands:
-      - drone build info $GIT_REPO $DRONE_BUILD_NUMBER --format {{.Message}} |
-        grep -o '[^ ]\+$' -m1 | sed 's|UKHomeOffice/||g' | tr '[:upper:]'
-        '[:lower:]' | tr '/' '-' > /root/.dockersock/branch_name.txt
-    when:
-      branch: master
-      event: push
+
   - name: clone_repos_prod
     image: alpine/git
     environment:
@@ -294,6 +298,7 @@ steps:
     when:
       target: PROD
       event: promote
+      
   - name: tear_down_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -310,6 +315,7 @@ steps:
     when:
       branch: master
       event: push
+      
   - name: deploy_to_prod
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -323,6 +329,7 @@ steps:
     when:
       target: PROD
       event: promote
+      
   - name: acceptance_tests_deploy
     pull: if-not-exists
     image: mcr.microsoft.com/playwright:v1.12.3-focal
@@ -333,6 +340,7 @@ steps:
     when:
       branch: master
       event: push
+      
   - name: cron_tear_down
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -346,6 +354,7 @@ steps:
     when:
       cron: tear_down_pr_envs
       event: cron
+      
   - name: cron_clone_repos
     image: alpine/git
     environment:
@@ -359,6 +368,7 @@ steps:
     when:
       cron: security_scans
       event: cron
+      
   - name: cron_build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     commands:
@@ -369,6 +379,7 @@ steps:
     when:
       cron: security_scans
       event: cron
+      
   - name: cron_snyk_scan
     pull: if-not-exists
     image: node:lts
@@ -382,6 +393,7 @@ steps:
     when:
       cron: security_scans
       event: cron
+      
   - name: cron_trivy_scan
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
@@ -394,70 +406,7 @@ steps:
     when:
       cron: security_scans
       event: cron
-  - name: cron_notify_slack_tear_down_pr_envs
-    pull: if-not-exists
-    image: plugins/slack
-    settings:
-      channel: sas-build
-      failure: ignore
-      icon_url: http://readme.drone.io/0.5/logo_dark.svg
-      icon.url: http://readme.drone.io/0.5/logo_dark.svg
-      template: >
-        CRON Job {{build.deployTo}} of Landlords Checking Service form has
-        {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success
-        build.status}}
-          :thumbsup: :thumbsup: :thumbsup:
-        {{else}}
-          :x: :x: :x:
-        {{/success}} Author: {{build.author}}
 
-
-        Duration: {{since job.started}}
-
-
-        Job: <{{build.link}}|#{{build.number}}>
-
-
-        Commit: {{build.commit}}
-      username: Drone
-      webhook:
-        from_secret: slack_webhook
-    when:
-      cron: tear_down_pr_envs
-      event: cron
-      status: failure
-  - name: cron_notify_slack_security_scans
-    pull: if-not-exists
-    image: plugins/slack
-    settings:
-      channel: sas-build
-      failure: ignore
-      icon_url: http://readme.drone.io/0.5/logo_dark.svg
-      icon.url: http://readme.drone.io/0.5/logo_dark.svg
-      template: >
-        CRON Job {{build.deployTo}} of Landlords Checking Service Form has
-        {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success
-        build.status}}
-         :thumbsup: :thumbsup: :thumbsup:
-        {{else}}
-         :x: :x: :x:
-        {{/success}} Author: {{build.author}}
-
-
-        Duration: {{since job.started}}
-
-
-        Job: <{{build.link}}|#{{build.number}}>
-
-
-        Commit: {{build.commit}}
-      username: Drone
-      webhook:
-        from_secret: slack_webhook
-    when:
-      cron: security_scans
-      event: cron
-      status: failure
 services:
   - name: docker
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
