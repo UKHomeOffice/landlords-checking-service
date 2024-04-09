@@ -100,11 +100,11 @@ module.exports = class CreateAndSendPDF {
       const trackedPageStartTime = Number(req.sessionModel.get('session.started.timestamp'));
       const timeSpentOnForm = utilities.secondsBetween(trackedPageStartTime, new Date());
 
-      req.log('info', 'lmr.submit_form.create_email_with_file_notify.successful');
-      req.log('info', `lmr.submission.duration=[${timeSpentOnForm}] seconds`);
+      req.log('info', 'lcs.submit_form.create_email_with_file_notify.successful');
+      req.log('info', `lcs.submission.duration=[${timeSpentOnForm}] seconds`);
     } catch (err) {
       const error = _.get(err, 'response.data.errors[0]', err.message || err);
-      req.log('error', 'lmr.submit_form.create_email_with_file_notify.error', error);
+      req.log('error', 'lcs.submit_form.create_email_with_file_notify.error', error);
       throw new Error(error);
     }
   }
@@ -144,11 +144,11 @@ module.exports = class CreateAndSendPDF {
       const trackedPageStartTime = Number(req.sessionModel.get('session.started.timestamp'));
       const timeSpentOnForm = utilities.secondsBetween(trackedPageStartTime, new Date());
 
-      req.log('info', 'lmr.submit_form.create_email_with_file_notify.successful');
-      req.log('info', `lmr.submission.duration=[${timeSpentOnForm}] seconds`);
+      req.log('info', 'lcs.submit_form.create_email_with_file_notify.successful');
+      req.log('info', `lcs.submission.duration=[${timeSpentOnForm}] seconds`);
     } catch (err) {
       const error = _.get(err, 'response.data.errors[0]', err.message || err);
-      req.log('error', 'lmr.submit_form.create_email_with_file_notify.error', error);
+      req.log('error', 'lcs.submit_form.create_email_with_file_notify.error', error);
       throw new Error(error);
     }
   }
@@ -164,7 +164,7 @@ module.exports = class CreateAndSendPDF {
       await this.sendLandlordEmailWithAttachment(req, pdfData);
       await this.sendCaseworkerEmailWithAttachment(req, pdfData);
 
-      req.log('info', 'lmr.form.submit_form.successful');
+      req.log('info', 'lcs.form.submit_form.successful');
     } catch(e) {
       req.log('error', JSON.stringify(e));
       throw e;

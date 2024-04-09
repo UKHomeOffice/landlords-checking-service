@@ -57,7 +57,6 @@ steps:
         include:
         - master
         - feature/*
-        - TLF-74-pipeline
       event: [push, pull_request]
 
   - name: setup_deploy
@@ -112,7 +111,7 @@ steps:
       DOCKER_PASSWORD:
         from_secret: DOCKER_PASSWORD
     commands:
-    - docker login -u="ukhomeofficedigital+lmr" -p=$${DOCKER_PASSWORD} quay.io
+    - docker login -u="ukhomeofficedigital+lcs" -p=$${DOCKER_PASSWORD} quay.io
     - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
     - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
     when:
