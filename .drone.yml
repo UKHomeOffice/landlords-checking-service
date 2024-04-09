@@ -51,12 +51,13 @@ steps:
       DRONE_GIT_TOKEN:
         from_secret: drone_git_token
     commands:
-      - git clone https://${DRONE_GIT_USERNAME}:${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
     when:
       branch:
         include:
         - master
         - feature/*
+        - TLF-74-pipeline
       event: [push, pull_request]
 
   - name: setup_deploy
