@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-### LCS
+# LCS
 =======
 Landlords-Checking-Service (lcs) form built using the HOF (Home Office Forms) Framework.
 
