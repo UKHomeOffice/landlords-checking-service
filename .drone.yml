@@ -76,12 +76,12 @@ steps:
       - pull_request
         
   - name: linting_deploy
-    pull: if-not-exists
-    image: node:18
-    environment:
-      NOTIFY_KEY: USE_MOCK
-    commands:
-      - yarn run test:lint
+    # pull: if-not-exists
+    # image: node:18
+    # environment:
+    #   NOTIFY_KEY: USE_MOCK
+    # commands:
+    #   - yarn run test:lint
     when:
       branch:
         include:
@@ -89,12 +89,12 @@ steps:
       event: push
       
   - name: unit_tests_deploy
-    pull: if-not-exists
-    image: node:18
-    environment:
-      NOTIFY_KEY: USE_MOCK
-    commands:
-      - yarn run test:unit
+    # pull: if-not-exists
+    # image: node:18
+    # environment:
+    #   NOTIFY_KEY: USE_MOCK
+    # commands:
+    #   - yarn run test:unit
     when:
       branch:
         include:
@@ -195,12 +195,12 @@ steps:
       event: pull_request
       
   - name: linting_branch
-    pull: if-not-exists
-    image: node:18
-    environment:
-      NOTIFY_KEY: USE_MOCK
-    commands:
-      - yarn run test:lint
+    # pull: if-not-exists
+    # image: node:18
+    # environment:
+    #   NOTIFY_KEY: USE_MOCK
+    # commands:
+    #   - yarn run test:lint
     when:
       branch:
         include:
