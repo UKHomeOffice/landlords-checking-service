@@ -1,5 +1,5 @@
-const sections = require('../../../apps/lmr/sections/summary-data-sections.js');
-const pages = require('../../../apps/lmr/translations/src/en/pages.json');
+const sections = require('../../../apps/lcs/sections/summary-data-sections.js');
+const pages = require('../../../apps/lcs/translations/src/en/pages.json');
 
 describe('Apply Summary Data Sections', () => {
   describe.only('Sections and Pages', () => {

@@ -5,7 +5,7 @@ const Submit = require('./behaviours/submit');
 const SummaryPageBehaviour = require('hof').components.summary;
 
 module.exports = {
-  name: 'lmr',
+  name: 'lcs',
   baseUrl: '/',
   confirmStep: '/summary',
   steps: {

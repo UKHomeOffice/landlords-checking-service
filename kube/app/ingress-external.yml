@@ -16,11 +16,11 @@ spec:
     - hosts:
       {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
         - {{ .DRONE_BUILD_NUMBER }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
-        - lmr-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
+        - lcs-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
       {{ else if eq .KUBE_NAMESPACE .UAT_ENV }}
-        - lmr.uat.sas-notprod.homeoffice.gov.uk
+        - lcs.uat.sas-notprod.homeoffice.gov.uk
       {{ else if eq .KUBE_NAMESPACE .STG_ENV }}
-        - lmr.stg.sas.homeoffice.gov.uk
+        - lcs.stg.sas.homeoffice.gov.uk
       {{ else if eq .KUBE_NAMESPACE .PROD_ENV }}
         - {{ .PRODUCTION_URL }}
       {{ end }}
@@ -31,9 +31,9 @@ spec:
       {{ end }}
   rules:
     {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
-    - host: lmr-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
+    - host: lcs-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
     {{ else if eq .KUBE_NAMESPACE .UAT_ENV }}
-    - host: lmr.uat.sas-notprod.homeoffice.gov.uk
+    - host: lcs.uat.sas-notprod.homeoffice.gov.uk
     {{ else if eq .KUBE_NAMESPACE .STG_ENV }}
     - host: preprod.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
     {{ else }}

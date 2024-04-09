@@ -1,5 +1,5 @@
-#### LMR
-Landlords Make a Report (LMR) form built using the HOF (Home Office Forms) Framework.
+#### lcs
+Landlords checking service (lcs) form built using the HOF (Home Office Forms) Framework.
 
 ## Getting Started
 ### Prerequisites
@@ -21,7 +21,7 @@ A full list of environment variables for extended local integrations can be acce
 
 ### Run the service
 ```bash
-$ cd lmr
+$ cd lcs
 $ yarn install
 $ yarn start:dev
 ```
