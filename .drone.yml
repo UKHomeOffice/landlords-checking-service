@@ -57,11 +57,11 @@ steps:
         include:
           - master
           - feature/*
-        event: [push, pull_request]
-  #     event:
-  #       - push
-  #       - pull_request
-  # - name: setup_deploy
+        # event: [push, pull_request]
+      event:
+        - push
+        - pull_request
+  - name: setup_deploy
     pull: if-not-exists
     image: node:18.12.0
     environment:
@@ -282,19 +282,19 @@ steps:
     when:
       branch: master
       event: push
-  - name: clone_repos_prod
-    image: alpine/git
-    environment:
-      DRONE_GIT_USERNAME:
-        from_secret: drone_git_username
-      DRONE_GIT_TOKEN:
-        from_secret: drone_git_token
-    commands:
-      - git clone
-        https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
-    when:
-      target: PROD
-      event: promote
+  # - name: clone_repos_prod
+  #   image: alpine/git
+  #   environment:
+  #     DRONE_GIT_USERNAME:
+  #       from_secret: drone_git_username
+  #     DRONE_GIT_TOKEN:
+  #       from_secret: drone_git_token
+  #   commands:
+  #     - git clone
+  #       https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+  #   when:
+  #     target: PROD
+  #     event: promote
   - name: tear_down_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
