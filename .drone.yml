@@ -57,10 +57,10 @@ steps:
         include:
           - master
           - feature/*
-        # event: [push, pull_request]
-      event:
-        - push
-        - pull_request
+      event: [push, pull_request]
+      # event:
+      #   - push
+      #   - pull_request
   - name: setup_deploy
     pull: if-not-exists
     image: node:18.12.0
