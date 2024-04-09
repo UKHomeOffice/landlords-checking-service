@@ -347,54 +347,54 @@ steps:
     when:
       cron: tear_down_pr_envs
       event: cron
-  - name: cron_clone_repos
-    image: alpine/git
-    environment:
-      DRONE_GIT_USERNAME:
-        from_secret: drone_git_username
-      DRONE_GIT_TOKEN:
-        from_secret: drone_git_token
-    commands:
-      - git clone
-        https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
-    when:
-      cron: security_scans
-      event: cron
-  - name: cron_build_image
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-    commands:
-      - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
-    volumes:
-      - name: dockersock
-        path: /var/run
-    when:
-      cron: security_scans
-      event: cron
-  - name: cron_snyk_scan
-    pull: if-not-exists
-    image: node:lts
-    environment:
-      SNYK_TOKEN:
-        from_secret: snyk_token
-    commands:
-      - yarn install --frozen-lockfile
-      - yarn run postinstall
-      - yarn run test:snyk
-    when:
-      cron: security_scans
-      event: cron
-  - name: cron_trivy_scan
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
-    pull: always
-    environment:
-      IMAGE_NAME: lcs:${DRONE_COMMIT_SHA}
-      SEVERITY: MEDIUM,HIGH,CRITICAL
-      FAIL_ON_DETECTION: false
-      IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
-    when:
-      cron: security_scans
-      event: cron
+  # - name: cron_clone_repos
+  #   image: alpine/git
+  #   environment:
+  #     DRONE_GIT_USERNAME:
+  #       from_secret: drone_git_username
+  #     DRONE_GIT_TOKEN:
+  #       from_secret: drone_git_token
+  #   commands:
+  #     - git clone
+  #       https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+  #   when:
+  #     cron: security_scans
+  #     event: cron
+  # - name: cron_build_image
+  #   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+  #   commands:
+  #     - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
+  #   volumes:
+  #     - name: dockersock
+  #       path: /var/run
+  #   when:
+  #     cron: security_scans
+  #     event: cron
+  # - name: cron_snyk_scan
+  #   pull: if-not-exists
+  #   image: node:lts
+  #   environment:
+  #     SNYK_TOKEN:
+  #       from_secret: snyk_token
+  #   commands:
+  #     - yarn install --frozen-lockfile
+  #     - yarn run postinstall
+  #     - yarn run test:snyk
+  #   when:
+  #     cron: security_scans
+  #     event: cron
+  # - name: cron_trivy_scan
+  #   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+  #   pull: always
+  #   environment:
+  #     IMAGE_NAME: lcs:${DRONE_COMMIT_SHA}
+  #     SEVERITY: MEDIUM,HIGH,CRITICAL
+  #     FAIL_ON_DETECTION: false
+  #     IGNORE_UNFIXED: true
+  #     ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
+  #   when:
+  #     cron: security_scans
+  #     event: cron
   - name: cron_notify_slack_tear_down_pr_envs
     pull: if-not-exists
     image: plugins/slack
