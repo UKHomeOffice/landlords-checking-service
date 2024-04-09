@@ -41,6 +41,7 @@ sonar_scanner:
   image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
   commands:
     - sonar-scanner -Dproject.settings=./sonar-project.properties
+    
 steps:
   - name: clone_repos
     image: alpine/git
