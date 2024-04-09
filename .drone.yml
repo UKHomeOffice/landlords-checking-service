@@ -60,8 +60,8 @@ steps:
     when:
       branch:
         include:
-          - master
-          - feature/*
+        - master
+        - feature/*
       event: [push, pull_request]
       # event:
       #   - push
@@ -78,10 +78,10 @@ steps:
     when:
       branch:
         include:
-          - master
+        - master
       event:
-        - push
-        - pull_request
+      - push
+      - pull_request
         
   - name: linting_deploy
     pull: if-not-exists
@@ -146,8 +146,7 @@ steps:
         from_secret: DOCKER_PASSWORD
     commands:
       - docker login -u="ukhomeofficedigital+lcs" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
-        $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+      - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
       - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
     when:
       branch: master
