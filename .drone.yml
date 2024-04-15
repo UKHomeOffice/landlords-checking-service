@@ -178,6 +178,7 @@ steps:
       branch: master
       event: pull_request
 
+# snyk scan
   - name: snyk_scan
     pull: if-not-exists
     image: node:lts
