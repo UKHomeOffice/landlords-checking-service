@@ -178,6 +178,22 @@ steps:
       branch: master
       event: pull_request
 
+  - name: snyk_scan
+    pull: if-not-exists
+    image: node:lts
+    environment:
+      NOTIFY_STUB: true
+      SNYK_TOKEN:
+        from_secret: snyk_token
+    commands:
+      - yarn run test:snyk
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
   - name: deploy_to_uat
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
