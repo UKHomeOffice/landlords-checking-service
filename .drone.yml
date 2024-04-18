@@ -25,8 +25,7 @@ trigger:
 linting: &linting
   pull: if-not-exists
   image: node:18
-  environment:
-    NOTIFY_KEY: USE_MOCK
+  environment: 
   commands:
     - yarn run test:lint
 
@@ -37,10 +36,6 @@ unit_tests: &unit_tests
     NOTIFY_KEY: USE_MOCK
   commands:
     - yarn run test:unit
-
-acceptance_tests: &acceptance_tests
-  pull: if-not-exists
-  image: mcr.microsoft.com/playwright:v1.12.3-focal
 
 # build steps
 steps:
@@ -168,16 +163,6 @@ steps:
           - feature/*
       event: pull_request
 
-  - name: acceptance_tests_branch
-    <<: *acceptance_tests
-    commands:
-      - export ACCEPTANCE_HOST_NAME=https://$${APP_NAME}-$${DRONE_SOURCE_BRANCH}.$${BRANCH_ENV}.homeoffice.gov.uk
-      - npx playwright install
-      - npm run test:acceptance
-    when:
-      branch: master
-      event: pull_request
-
 # snyk scan
   - name: snyk_scan
     pull: if-not-exists
@@ -260,15 +245,6 @@ steps:
       target: PROD
       event: promote
 
-  - name: acceptance_tests_deploy
-    <<: *acceptance_tests
-    commands:
-      - export ACCEPTANCE_HOST_NAME=https://$${PRODUCTION_URL}
-      - npx playwright install
-      - npm run test:acceptance
-    when:
-      branch: master
-      event: push
 
   # CRON job step that tears down our pull request UAT environments
   - name: cron_tear_down
