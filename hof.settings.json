@@ -1,0 +1,14 @@
+{
+  "appName": "Landlords Checking Service",
+  "theme": "govUK",
+  "behaviours": [
+    "hof/components/clear-session"
+  ],
+  "routes": [
+    "./apps/lcs"
+  ],
+  "session": {
+    "name": "lcs.hof.sid"
+  },
+  "getAccessibility": true
+}
