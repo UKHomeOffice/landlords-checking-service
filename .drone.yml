@@ -133,6 +133,26 @@ steps:
   #     branch: master
   #     event: [push, pull_request]
 
+# scan image using trivy
+  - name: scan-image
+    pull: always
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    resources:
+      limits:
+        cpu: 1000
+        memory: 1024Mi
+    environment:
+      IMAGE_NAME: lcs:${DRONE_COMMIT_SHA}
+      SEVERITY: MEDIUM,HIGH,CRITICAL
+      FAIL_ON_DETECTION: false
+      IGNORE_UNFIXED: true
+      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
+    when:
+      event:
+        - pull_request
+        - push
+        - tag
+
   # Deploy to pull request UAT environment
   - name: deploy_to_branch
     pull: if-not-exists
