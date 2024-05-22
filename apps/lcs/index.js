@@ -3,20 +3,6 @@ const summary = hof.components.summary;
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
 
-/**
- * Checks if a given field value matches a conditional value based on the request object.
- *
- * @param {Object} req - The request object.
- * @param {string} fieldName - The name of the field to check.
- * @param {string} conditionalValue - The value to compare against the field value.
- * @returns {boolean} - Returns true if the field value matches the conditional value, false otherwise.
- */
-function forkCondition(req, fieldName, conditionalValue) {
-  const fieldValue = req.sessionModel.get(fieldName);
-  if (!fieldValue) return false;
-  return Array.isArray(fieldValue) ? fieldValue.includes(conditionalValue) : fieldValue === conditionalValue;
-}
-
 module.exports = {
   name: 'lcs',
   baseUrl: '/',
