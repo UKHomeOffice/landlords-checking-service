@@ -1,0 +1,30 @@
+@import "hof/frontend/themes/gov-uk/styles/govuk";
+
+ul {
+    @extend .govuk-list--bullet;
+}
+
+p {
+    @extend .govuk-body;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+p a[href] {
+    @extend .govuk-link;
+}
+
+.checkbox-hint {
+    padding-left: 50px;
+    margin-top: -25px;
+}
+.bullet-list {
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.alert-complete {
+    background-color: #00703c;
+    border-color: #00703c;
+    padding: 50px !important;
+  }

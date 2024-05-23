@@ -1,0 +1,49 @@
+{
+  "start": {
+    "header" : "Request a Home Office right to rent check"
+  },
+  "property-occupied": {
+    
+  },
+  "tenant-details": {
+    
+  },
+  "tenant-address": {
+    
+  },
+  "before-1988": {
+    
+  },
+  "extra-tenant-details": {
+    
+  },
+  "landlord-information": {
+    
+  },
+  "rental-property": {
+    
+  },
+  "confirm": {
+    "header": "Summary",
+    "sections": {
+      "tenants-information": {
+        "header": "Tenant’s or prospective tenant’s information"
+      },
+      "tenants-contact-details": {
+        "header": "Tenant’s or prospective tenant’s contact details"
+      },
+      "landlord-agent-information": {
+        "header": "Landlord’s or agent’s information"
+      }
+    },
+    "fields": {}
+  },
+  "privacy-policy": {
+    "header": "Privacy policy"
+  },
+  "check-requested": {
+    "confirmed": "Right to rent check requested",
+    "confirmation-message": "An email confirming the information you submitted has been sent to the address you provided.",
+    "what-is-next": "We will carry out the necessary checks and email you again within 2 working days."
+  }
+}

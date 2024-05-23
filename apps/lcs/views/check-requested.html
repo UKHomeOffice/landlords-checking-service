@@ -1,0 +1,21 @@
+{{<partials-page}}
+  {{$pageTitle}}
+    {{#t}}pages.privacy-declaration.confirmed{{/t}} &ndash; {{#t}}journey.serviceName{{/t}} &ndash; GOV.UK
+  {{/pageTitle}}
+  {{$page-content}}
+    <div class="govuk-panel alert-complete govuk-panel--confirmation">
+      <h1 class="govuk-panel__title">
+        {{#t}}pages.check-requested.confirmed{{/t}}
+      </h1>
+    </div>
+    <div class="confirm-message">
+      <p>{{#t}}pages.check-requested.confirmation-message{{/t}}</p>
+      <p>{{#t}}pages.check-requested.what-is-next{{/t}}</p>
+    </div>
+
+    <a href="/start" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+      {{#t}}buttons.new-request{{/t}}
+    </a>
+
+  {{/page-content}}
+{{/partials-page}}
