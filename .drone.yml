@@ -9,8 +9,8 @@ environment:
   UAT_ENV: sas-lcs-uat
   BRANCH_ENV: sas-lcs-notprod
   PRODUCTION_URL: www.landlords-request-a-check.homeoffice.gov.uk
-  IMAGE_URL: quay.io/ukhomeofficedigital
-  IMAGE_REPO: lcs
+  # IMAGE_URL: quay.io/ukhomeofficedigital
+  IMAGE_REPO: sas/lcs
   GIT_REPO: UKHomeOffice/landlords-checking-service
   HOF_CONFIG: hof-services-config/Landlords_Checking_Service
   NON_PROD_AVAILABILITY: Sun-Sat 06:00-24:00 Europe/London
