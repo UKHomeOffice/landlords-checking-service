@@ -7,9 +7,8 @@ environment:
   APP_NAME: lcs
   PROD_ENV: sas-lcs-prod
   UAT_ENV: sas-lcs-uat
-  BRANCH_ENV: sas-lcs-notprod
+  BRANCH_ENV: sas-lcs-branch
   PRODUCTION_URL: www.landlords-request-a-check.homeoffice.gov.uk
-  # IMAGE_URL: quay.io/ukhomeofficedigital
   IMAGE_REPO: sas/lcs
   GIT_REPO: UKHomeOffice/landlords-checking-service
   HOF_CONFIG: hof-services-config/Landlords_Checking_Service
