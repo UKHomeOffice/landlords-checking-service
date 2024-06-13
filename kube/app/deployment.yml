@@ -67,16 +67,6 @@ spec:
               {{ else }}
               value: redis
               {{ end }}
-            - name: SESSION_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: session-secret
-                  key: session-secret
-            # - name: NOTIFY_KEY
-            #   valueFrom:
-            #     secretKeyRef:
-            #       name: notify-key
-            #       key: notify-key
           {{ if not (eq .KUBE_NAMESPACE .BRANCH_ENV) }}
           livenessProbe:
             httpGet:
