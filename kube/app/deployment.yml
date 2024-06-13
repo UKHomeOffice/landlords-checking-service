@@ -50,9 +50,9 @@ spec:
           envFrom:
             - configMapRef:
                 {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
-                name: configmap-{{ .DRONE_SOURCE_BRANCH }}
+                name: {{ .APP_NAME }}-configmap-{{ .DRONE_SOURCE_BRANCH }}
                 {{ else }}
-                name: configmap
+                name: {{ .APP_NAME }}-configmap
                 {{ end }}
           env:
             - name: TZ
@@ -80,6 +80,7 @@ spec:
           {{ if not (eq .KUBE_NAMESPACE .BRANCH_ENV) }}
           livenessProbe:
             httpGet:
+            {{ end }}
               path: /healthz/ping
               port: 8080
             initialDelaySeconds: 10
