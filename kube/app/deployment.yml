@@ -50,9 +50,9 @@ spec:
           envFrom:
             - configMapRef:
                 {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
-                name: {{ .APP_NAME }}-configmap-{{ .DRONE_SOURCE_BRANCH }}
+                name: configmap-{{ .DRONE_SOURCE_BRANCH }}
                 {{ else }}
-                name: {{ .APP_NAME }}-configmap
+                name: configmap
                 {{ end }}
           env:
             - name: TZ
@@ -67,6 +67,16 @@ spec:
               {{ else }}
               value: redis
               {{ end }}
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: session-secret
+                  key: session-secret
+            - name: NOTIFY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: notify-key
+                  key: notify-key
           {{ if not (eq .KUBE_NAMESPACE .BRANCH_ENV) }}
           livenessProbe:
             httpGet:
