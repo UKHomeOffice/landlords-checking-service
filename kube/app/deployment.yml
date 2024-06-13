@@ -80,7 +80,6 @@ spec:
           {{ if not (eq .KUBE_NAMESPACE .BRANCH_ENV) }}
           livenessProbe:
             httpGet:
-            {{ end }}
               path: /healthz/ping
               port: 8080
             initialDelaySeconds: 10
