@@ -13,8 +13,7 @@
     "postinstall": "hof-build",
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
     "test:unit": "LOG_LEVEL=error nyc _mocha \"test/_unit/**/*.spec.js\"",
-    "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
-    "postinstall": "yarn run build"
+    "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test"
   },
   "repository": {
     "type": "git",
