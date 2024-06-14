@@ -7,10 +7,6 @@ metadata:
   {{ else }}
   name: ingress-network-policy-external-{{ .APP_NAME }}
   {{ end }}
-  labels:
-    cert-manager.io/solver: http01
-  annotations:
-    cert-manager.io/enabled: "true"
 spec:
   podSelector:
     matchLabels:
