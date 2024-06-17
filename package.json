@@ -10,10 +10,10 @@
     "start": "node server.js",
     "start:dev": "hof-build watch",
     "build": "hof-build",
-    "postinstall": "hof-build",
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
     "test:unit": "LOG_LEVEL=error nyc _mocha \"test/_unit/**/*.spec.js\"",
-    "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test"
+    "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
+    "postinstall": "yarn run build"
   },
   "repository": {
     "type": "git",
