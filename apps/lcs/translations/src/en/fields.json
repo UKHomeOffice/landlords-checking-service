@@ -1,4 +1,19 @@
 {
+  "person-live-in": {
+    "legend": "Does the person already live in your property?",
+    "options": {
+      "yes": {
+        "label": "Yes"
+      },
+      "no": {
+        "label": "No"
+      }
+    }
+  },
+  "when-person-moved-in": {
+    "legend": "When did the tenant move into your property?",
+    "hint": "For example 21 3 2015"
+  },
   "privacy-check": {
     "label": "I confirm that I have read and understood this Data Protection statement."
   }

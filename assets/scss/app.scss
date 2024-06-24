@@ -18,6 +18,7 @@ p a[href] {
     padding-left: 50px;
     margin-top: -25px;
 }
+
 .bullet-list {
     list-style: disc;
     margin-left: 20px;
@@ -27,4 +28,17 @@ p a[href] {
     background-color: #00703c;
     border-color: #00703c;
     padding: 50px !important;
-  }
+}
+
+.section-fields {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.table-details {
+    margin-top: 60px !important;
+}
+
+.confirm-label {
+    font-weight: normal;
+}
