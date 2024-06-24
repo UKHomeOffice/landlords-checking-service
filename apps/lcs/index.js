@@ -1,7 +1,9 @@
 const hof = require('hof');
 const summary = hof.components.summary;
+const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
+const dateBefore1988 = config.dateBefore1988;
 
 module.exports = {
   name: 'lcs',
@@ -12,16 +14,22 @@ module.exports = {
       next: '/property-occupied'
     },
     '/property-occupied': {
-      fields: [],
+      fields: ['person-live-in', 'when-person-moved-in'],
       next: '/tenant-details'
     },
     '/tenant-details': {
-      fields: [],
+      fields: ['tenant-full-name', 'tenant-dob', 'tenant-nationality', 'ho-ref-number'],
       next: '/tenant-address'
     },
     '/tenant-address': {
       fields: [],
-      next: '/before-1988'
+      next: '/before-1988',
+      forks: [
+        {
+          target: '/before-1988',
+          condition: req => req.sessionModel.get('tenant-dob') < dateBefore1988
+        }
+      ]
     },
     '/before-1988': {
       fields: [],
