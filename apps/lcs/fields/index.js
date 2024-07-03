@@ -1,5 +1,7 @@
 const dateComponent = require('hof').components.date;
 const countries = require('hof').utils.countries();
+const config = require('../../../config.js');
+
 
 /**
  * Validation rule to exclude the value 'United Kingdom'.
@@ -9,6 +11,16 @@ const countries = require('hof').utils.countries();
 function excludeUK(value) {
   return value !== 'United Kingdom';
 }
+
+function niNumber(value) {
+  const niNumberWithoutSpaces = value.replace(/\s+/g, '').trim();
+  return niNumberWithoutSpaces.match(/^[ABCEGHJKLMNOPRSTWXYZ][ABCEGHJKLMNPRSTWXYZ][0-9]{6}[A-D]$/);
+}
+function telephoneNumber(value) {
+  return value.match(/^[\+\d\s\-\(\)]{8,16}$/);
+}
+
+
 
 module.exports = {
   'person-live-in': {
@@ -83,5 +95,47 @@ module.exports = {
   'privacy-check': {
     mixin: 'checkbox',
     validate: ['required']
+  },
+  'before-or-after-1988': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    validate: 'required',
+    className: ['block', 'form-group', 'govuk-radios govuk-radios--inline'],
+    options: [
+      {
+        value: 'yes'
+      },
+      {
+        value: 'no'
+      }
+    ]
+  },
+  'date-tenant-moved-uk': dateComponent('date-tenant-moved-uk', {
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date',
+    ],
+    className: ['govuk-label--s'],
+  }),
+  "extra-tenant-pob": {
+    mixin: 'input-text',
+    validate: 'required',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  "extra-tenant-ni-num": {
+    mixin: 'input-text',
+    validate: ['required', niNumber],
+    className: ['govuk-input', 'govuk-input govuk-!-width-one-half']
+  },
+  "extra-tenant-email": {
+    mixin: 'input-text',
+    validate: 'email',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  "extra-tenant-tel": {
+    mixin: 'input-text',
+    validate: ['required', 'notUrl', telephoneNumber],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
   }
 };

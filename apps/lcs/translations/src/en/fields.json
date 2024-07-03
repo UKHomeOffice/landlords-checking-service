@@ -14,7 +14,35 @@
     "legend": "When did the tenant move into your property?",
     "hint": "For example 21 3 2015"
   },
+  "before-or-after-1988": {
+      "legend": "Has the prospective tenant been in the UK since before 1988?",
+      "options": {
+        "yes": {
+          "label": "Yes"
+        },
+        "no": {
+          "label": "No"
+        }
+      }
+    },
   "privacy-check": {
     "label": "I confirm that I have read and understood this Data Protection statement."
+  },
+  "date-tenant-moved-uk" : {
+    "legend": "Date tenant moved to the UK",
+    "hint": "For example 21 3 1980. Enter an approximate date if not known"
+  },
+  "extra-tenant-pob": {
+    "label": "Place of birth"
+  },
+  "extra-tenant-ni-num": {
+    "label": "National Insurance number",
+    "hint": "This is on their National Insurance card, benefit letter, payslip or P60. For example, QQ 12 34 56 C"
+  },
+  "extra-tenant-email": {
+    "label": "Email address (optional)"
+  },
+  "extra-tenant-tel": {
+    "label": "Telephone number"
   }
 }
