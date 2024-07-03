@@ -9,7 +9,8 @@ module.exports = superclass => class extends superclass {
     if(key === 'date-tenant-moved-uk') {
       const DateToBeValidated = req.form.values[key];
       const tenantDob = req.sessionModel.get('tenant-dob');
-      if(req.sessionModel.get('before-or-after-1988') === 'yes' && !validators.before(DateToBeValidated, dateBefore1988)) {
+      if(req.sessionModel.get('before-or-after-1988') === 'yes'
+      && !validators.before(DateToBeValidated, dateBefore1988)) {
         return validationErrorFunc('before');
       }
       if(!validators.after(DateToBeValidated, '120', 'years')) {
@@ -19,7 +20,6 @@ module.exports = superclass => class extends superclass {
         return validationErrorFunc('dateAfterDob');
       }
     }
-
     return super.validateField(key, req);
   }
 };

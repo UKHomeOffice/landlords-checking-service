@@ -1,6 +1,5 @@
 const dateComponent = require('hof').components.date;
 const countries = require('hof').utils.countries();
-const config = require('../../../config.js');
 
 
 /**
@@ -19,8 +18,6 @@ function niNumber(value) {
 function telephoneNumber(value) {
   return value.match(/^[\+\d\s\-\(\)]{8,16}$/);
 }
-
-
 
 module.exports = {
   'person-live-in': {
@@ -114,26 +111,26 @@ module.exports = {
     mixin: 'input-date',
     validate: [
       'required',
-      'date',
+      'date'
     ],
-    className: ['govuk-label--s'],
+    className: ['govuk-label--s']
   }),
-  "extra-tenant-pob": {
+  'extra-tenant-pob': {
     mixin: 'input-text',
     validate: 'required',
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
-  "extra-tenant-ni-num": {
+  'extra-tenant-ni-num': {
     mixin: 'input-text',
     validate: ['required', niNumber],
     className: ['govuk-input', 'govuk-input govuk-!-width-one-half']
   },
-  "extra-tenant-email": {
+  'extra-tenant-email': {
     mixin: 'input-text',
     validate: 'email',
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
-  "extra-tenant-tel": {
+  'extra-tenant-tel': {
     mixin: 'input-text',
     validate: ['required', 'notUrl', telephoneNumber],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
