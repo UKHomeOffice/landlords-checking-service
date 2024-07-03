@@ -6,6 +6,7 @@
     
   },
   "tenant-details": {
+    "header": "Tenant's details"
     
   },
   "tenant-address": {
@@ -15,10 +16,10 @@
     
   },
   "extra-tenant-details": {
-    
+    "header": "Extra tenant's details"
   },
   "landlord-information": {
-    
+
   },
   "rental-property": {
     
