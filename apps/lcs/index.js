@@ -3,9 +3,8 @@ const summary = hof.components.summary;
 const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
-const dateBefore1988 = config.dateBefore1988;
 const dateBefore1989 = config.dateBefore1989;
-const checkValidation = require('./behaviours/date-validation.js')
+const checkValidation = require('./behaviours/date-validation.js');
 
 module.exports = {
   name: 'lcs',
@@ -48,7 +47,11 @@ module.exports = {
     },
     '/extra-tenant-details': {
       behaviours: [checkValidation],
-      fields: ['date-tenant-moved-uk', "extra-tenant-pob", "extra-tenant-ni-num", "extra-tenant-email", "extra-tenant-tel"],
+      fields: ['date-tenant-moved-uk',
+        'extra-tenant-pob',
+        'extra-tenant-ni-num',
+        'extra-tenant-email',
+        'extra-tenant-tel'],
       next: '/landlord-information'
     },
     '/landlord-information': {
@@ -73,6 +76,6 @@ module.exports = {
     '/check-requested': {
       behaviours: [clearSession],
       next: ''
-    }, 
+    }
   }
 };
