@@ -46,7 +46,7 @@ module.exports = {
   'tenant-full-name': {
     mixin: 'input-text',
     validate: ['required', 'notUrl'],
-    labelClassName: 'govuk-label--s',
+    labelClassName: '',
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-dob': dateComponent('tenant-dob', {
@@ -58,30 +58,76 @@ module.exports = {
       { type: 'after', arguments: ['120', 'years'] }
     ],
     legend: {
-      className: 'govuk-label--s'
+      className: ''
     }
   }),
   'tenant-nationality': {
     mixin: 'select',
-    className: ['typeahead'],
+    className: ['typeahead', 'govuk-input govuk-!-width-three-quarters'],
     validate: [
       'required',
       excludeUK
     ],
     options: [{
       value: '',
-      label: 'fields.tenant-nationality.options.null'
+      label: 'fields.tenant-nationality.options.none_selected'
     }].concat(countries),
-    labelClassName: 'govuk-label--s'
+    labelClassName: ''
   },
   'ho-ref-number': {
     mixin: 'input-text',
     validate: ['required'],
-    labelClassName: 'govuk-label--s',
+    labelClassName: '',
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'privacy-check': {
     mixin: 'checkbox',
     validate: ['required']
+  },
+  'before-or-after-1988': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    validate: 'required',
+    className: ['block', 'form-group', 'govuk-radios govuk-radios--inline'],
+    options: [
+      {
+        value: 'yes'
+      },
+      {
+        value: 'no'
+      }
+    ]
+  },
+  'date-tenant-moved-uk': dateComponent('date-tenant-moved-uk', {
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date'
+    ],
+    className: ['govuk-label--s']
+  }),
+  'tenant-address-line-1': {
+    mixins: 'input-text',
+    validate: 'required',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'tenant-address-line-2': {
+    mixins: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'tenant-town-or-city': {
+    mixins: 'input-text',
+    validate: 'required',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'tenant-county': {
+    mixins: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'tenant-postcode': {
+    mixins: 'input-text',
+    formatter: ['ukPostcode'],
+    validate: ['required', 'postcode'],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
   }
 };

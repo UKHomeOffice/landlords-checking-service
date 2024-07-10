@@ -16,5 +16,56 @@
   },
   "privacy-check": {
     "label": "I confirm that I have read and understood this Data Protection statement."
+  },
+  "date-tenant-moved-uk" : {
+    "legend": "Date tenant moved to the UK",
+    "hint": "For example 21 3 1980. Enter an approximate date if not known"
+  },
+  "extra-tenant-pob": {
+    "label": "Place of birth"
+  },
+  "extra-tenant-ni-num": {
+    "label": "National Insurance number",
+    "hint": "This is on their National Insurance card, benefit letter, payslip or P60. For example, QQ 12 34 56 C"
+  },
+  "extra-tenant-email": {
+    "label": "Email address (optional)"
+  },
+  "extra-tenant-tel": {
+    "label": "Telephone number"
+  },
+  "tenant-full-name": {
+    "label": "Full name"
+  },
+  "tenant-dob": {
+    "legend": "Date of birth"
+  },
+  "tenant-nationality": {
+    "label": "Country of nationality",
+    "options": {
+      "none_selected": "Select a country"
+    }
+  },
+  "ho-ref-number": {
+    "label": "Home Office reference number"
+  },
+  "tenant-address": {
+    "label": "Tenant’s current address"
+  },
+  "tenant-address-line-1": {
+    "label": "Address line 1"
+  },
+  "tenant-address-line-2": {
+    "label": "Address line 2 (optional)"
+  },
+  "tenant-town-or-city": {
+    "label": "Town or city"
+  },
+  "tenant-county": {
+    "label": "County (optional)"
+  },
+  "tenant-postcode": {
+    "label": "Postcode"
   }
+
 }
