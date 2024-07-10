@@ -44,5 +44,39 @@
   },
   "extra-tenant-tel": {
     "label": "Telephone number"
+  },
+  "tenant-full-name": {
+    "label": "Full name"
+  },
+  "tenant-dob": {
+    "legend": "Date of birth"
+  },
+  "tenant-nationality": {
+    "label": "Country of nationality",
+    "options": {
+      "none_selected": "Select a country"
+    }
+  },
+  "ho-ref-number": {
+    "label": "Home Office reference number"
+  },
+  "tenant-address": {
+    "label": "Tenant’s current address"
+  },
+  "tenant-address-line-1": {
+    "label": "Address line 1"
+  },
+  "tenant-address-line-2": {
+    "label": "Address line 2 (optional)"
+  },
+  "tenant-town-or-city": {
+    "label": "Town or city"
+  },
+  "tenant-county": {
+    "label": "County (optional)"
+  },
+  "tenant-postcode": {
+    "label": "Postcode"
   }
+
 }

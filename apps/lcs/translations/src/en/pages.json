@@ -7,10 +7,21 @@
   },
   "tenant-details": {
     "header": "Tenant's details"
-    
+  },
+  "tenant-full-name": {
+    "legend": "Full name"
+  },
+  "tenant-dob": {
+    "header": "Date of birth"
+  },
+  "tenant-nationality": {
+    "header": "Country of nationality"
+  },
+  "ho-ref-number": {
+    "header": "Home Office reference number"
   },
   "tenant-address": {
-    
+    "header": "Tenant’s current address"
   },
   "before-1988": {
     
