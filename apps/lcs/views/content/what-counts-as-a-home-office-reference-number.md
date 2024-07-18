@@ -1,0 +1,16 @@
+  <details class="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+        What counts as a Home Office reference number
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      <p1>You can provide any of these numbers:</p1>
+      <ul>
+        <li>biometric residence permit number</li>
+          <li>passport number (current or expired)</li>
+          <li>Home Office application reference number</li>
+          <li>any tracking reference number</li>
+      </ul>
+    </div>
+  </details>

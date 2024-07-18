@@ -1,0 +1,12 @@
+{{<partials-page}}
+  {{$page-content}}
+    {{#input-text}}tenant-address-line-1{{/input-text}}
+    {{#input-text}}tenant-address-line-2{{/input-text}}
+    {{#input-text}}tenant-town-or-city{{/input-text}}
+    {{#input-text}}tenant-county{{/input-text}}
+    {{#values.isCurrentTenant}}
+    {{#input-text}}tenant-postcode{{/input-text}}
+        {{/values.isCurrentTenant}}
+    {{#input-submit}}continue{{/input-submit}}
+  {{/page-content}}
+{{/partials-page}}

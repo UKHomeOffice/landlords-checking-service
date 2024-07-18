@@ -4,6 +4,7 @@ const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
 const dateBefore1989 = config.dateBefore1989;
+const savedDetails = require('./behaviours/saving-details');
 
 module.exports = {
   name: 'lcs',
@@ -14,6 +15,7 @@ module.exports = {
       next: '/property-occupied'
     },
     '/property-occupied': {
+      behaviours: [savedDetails],
       fields: ['person-live-in', 'when-person-moved-in'],
       next: '/tenant-details'
     },
