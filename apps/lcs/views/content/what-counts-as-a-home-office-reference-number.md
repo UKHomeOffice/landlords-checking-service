@@ -5,12 +5,11 @@
       </span>
     </summary>
     <div class="govuk-details__text">
-      <p1>You can provide any of these numbers:</p1>
-      <ul>
-        <li>biometric residence permit number</li>
-          <li>passport number (current or expired)</li>
-          <li>Home Office application reference number</li>
-          <li>any tracking reference number</li>
-      </ul>
+  You can provide any of these numbers: 
+      
+  - biometric residence permit number 
+  - passport number (current or expired) 
+  - Home Office application reference number 
+  - any tracking reference number 
     </div>
   </details>
