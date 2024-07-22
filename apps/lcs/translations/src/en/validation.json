@@ -1,5 +1,58 @@
 {
-    "privacy-check": {
-      "required": "Confirm you have read the Data Protection statement"
-    }
+  "when-person-moved-in": {
+    "required": "Tell us when the tenant moved into the property",
+    "notUrl": "Your answer must not contain URLs or links",
+    "date": "Enter a real date of birth",
+    "after": "This service only applies to tenants who moved in after 30 November 2014",
+    "before": "This date must not be in the future"
+  },
+  "tenant-full-name": {
+    "required": "Enter the [X]'s full name"
+  },
+  "tenant-dob": {
+    "required": "Enter the [X]'s date of birth",
+    "test": "[X] cannot be born after they moved into the rental property. Enter a date after [Y].",
+    "after": "Enter a real date of birth",
+    "over18": "The [X] must be 18 years or older. The right to rent scheme does not apply to children."
+  },
+  "tenant-nationality": {
+    "required": "Select a country of nationality from the list"
+  },
+  "ho-ref-number": {
+    "required": "Enter a Home Office reference number"
+  },
+  "privacy-check": {
+    "required": "Confirm you have read the Data Protection statement"
+  },
+  "before-or-after-1988": {
+    "required": "Tell us whether the [X] came to the UK before 1988"
+  },
+  "extra-tenant-pob": {
+    "required": "Enter a place of birth"
+  },
+  "extra-tenant-ni-num": {
+    "required": "Enter a National Insurance number",
+    "niNumber": "Enter a National Insurance number in the correct format"
+  },
+  "date-tenant-moved-uk": {
+    "required": "Enter a date the tenant came to the UK",
+    "after120years": "Enter a real date the [X] came to the UK",
+    "before": "Date must be before 1988",
+    "dateAfterDob": "Date must be after the [X]'s date of birth. Enter a date after [Y]" 
+  },
+  "extra-tenant-tel": {
+    "required": "Enter a telephone number",
+    "telephoneNumber": "Telephone number must be between 8 and 16 characters"
+  },
+  "tenant-address-line-1": {
+    "required": "Enter address line 1, typically the building and street"
+  },
+  "tenant-town-or-city": {
+    "required": "Enter a town or city" 
+  },
+  "tenant-postcode": {
+    "required": "Enter a postcode",
+    "postcode": "Enter a real UK postcode"
+  }
+
 }

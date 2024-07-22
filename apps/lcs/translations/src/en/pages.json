@@ -6,10 +6,10 @@
     
   },
   "tenant-details": {
-    
+    "header": "Tenant's details"
   },
   "tenant-address": {
-    
+    "header": "Tenant’s current address"
   },
   "before-1988": {
     
@@ -25,6 +25,7 @@
   },
   "confirm": {
     "header": "Summary",
+    "instructions": "Please check these details carefully before continuing. If any of the details are incorrect, please change them.",
     "sections": {
       "tenants-information": {
         "header": "Tenant’s or prospective tenant’s information"
