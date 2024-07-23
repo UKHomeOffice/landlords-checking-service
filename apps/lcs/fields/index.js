@@ -1,6 +1,7 @@
 const dateComponent = require('hof').components.date;
 const countries = require('hof').utils.countries();
 
+
 /**
  * Validation rule to exclude the value 'United Kingdom'.
  * @param {string} value - The value to be checked.
@@ -128,7 +129,7 @@ module.exports = {
   },
   'extra-tenant-tel': {
     mixin: 'input-text',
-    validate: ['required', 'notUrl', 'ukphonenumber']
+    validate: ['required', 'notUrl', 'ukPhoneNumber']
   },
   'tenant-address-line-1': {
     mixins: 'input-text',

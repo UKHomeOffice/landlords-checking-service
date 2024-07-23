@@ -42,7 +42,8 @@
   },
   "extra-tenant-tel": {
     "required": "Enter a telephone number",
-    "telephoneNumber": "Telephone number must be between 8 and 16 characters"
+    "telephoneNumber": "Telephone number must be between 8 and 16 characters",
+    "ukPhoneNumber": "Enter a valid UK telephone number"
   },
   "tenant-address-line-1": {
     "required": "Enter address line 1, typically the building and street"
