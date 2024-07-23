@@ -12,13 +12,10 @@ function excludeUK(value) {
 }
 
 function niNumber(value) {
-  const niNumberWithoutSpaces = value.replace(/\s+/g, '').trim();
-  return niNumberWithoutSpaces.match(/^[ABCEGHJKLMNOPRSTWXYZ][ABCEGHJKLMNPRSTWXYZ][0-9]{6}[A-D]$/);
+  const NiN = value.toUpperCase();
+  // eslint-disable-next-line max-len
+  return NiN.match(/^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}([A-D]|\s)$/);
 }
-function telephoneNumber(value) {
-  return value.match(/^[\+\d\s\-\(\)]{8,16}$/);
-}
-
 module.exports = {
   'person-live-in': {
     isPageHeading: 'true',
@@ -132,7 +129,7 @@ module.exports = {
   },
   'extra-tenant-tel': {
     mixin: 'input-text',
-    validate: ['required', 'notUrl', telephoneNumber],
+    validate: ['required', 'notUrl', 'ukphonenumber'],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   }
 };
