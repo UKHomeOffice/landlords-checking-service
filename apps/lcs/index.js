@@ -19,11 +19,13 @@ module.exports = {
       next: '/tenant-details'
     },
     '/tenant-details': {
+      behaviours: [hof.components.homeOfficeCountries],
       fields: ['tenant-full-name', 'tenant-dob', 'tenant-nationality', 'ho-ref-number'],
       next: '/tenant-address'
     },
     '/tenant-address': {
-      fields: [],
+      fields: ['tenant-address-line-1', 'tenant-address-line-2',
+        'tenant-town-or-city', 'tenant-county', 'tenant-postcode'],
       next: '/landlord-information',
       forks: [
         {
