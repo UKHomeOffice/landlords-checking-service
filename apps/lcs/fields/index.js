@@ -108,11 +108,11 @@ module.exports = {
   }),
   'tenant-address-line-1': {
     mixins: 'input-text',
-    validate: 'required',
+    validate: ['required', { type: 'maxlength', arguments: 250 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-address-line-2': {
-    mixins: 'input-text',
+    mixins: ['input-text', { type: 'maxlength', arguments: 250 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-town-or-city': {
@@ -122,11 +122,37 @@ module.exports = {
   },
   'tenant-county': {
     mixins: 'input-text',
+    validate: ['notUrl', { type: 'maxlength', arguments: 250 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-postcode': {
     mixins: 'input-text',
     formatter: ['ukPostcode'],
+    validate: ['required', 'postcode'],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'landlord-or-agent-name': {
+    mixins: 'input-text',
+    validate: ['required', 'notUrl', { type: 'maxlength', arguments: 250 }],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'landlord-or-agent-company': {
+    mixins: 'input-text',
+    validate: [ 'notUrl', { type: 'maxlength', arguments: 250 }],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'landlord-or-agent-email': {
+    mixins: 'input-text',
+    validate: ['required', 'notUrl', 'email'],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'landlord-or-agent-tel': {
+    mixins: 'input-text',
+    validate: [ 'notUrl', 'internationalPhoneNumber'],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'landlord-or-agent-postcode': {
+    mixins: 'input-text',
     validate: ['required', 'postcode'],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   }

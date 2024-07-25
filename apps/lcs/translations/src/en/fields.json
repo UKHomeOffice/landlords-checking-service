@@ -66,6 +66,21 @@
   },
   "tenant-postcode": {
     "label": "Postcode"
+  },
+  "landlord-or-agent-name": {
+    "label": "Landlord or agent's full name"
+  },
+  "landlord-or-agent-company": {
+    "label": "Company name (optional)"
+  },
+  "landlord-or-agent-email": {
+    "label": "Email address"
+  },
+  "landlord-or-agent-tel": {
+    "label": "Telephone number (optional)"
+  },
+  "landlord-or-agent-postcode": {
+    "label": "Postcode"
   }
 
 }

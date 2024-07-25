@@ -3,6 +3,7 @@ const summary = hof.components.summary;
 const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
+const saveDetails = require('./behaviours/saving-details');
 const dateBefore1989 = config.dateBefore1989;
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
       next: '/property-occupied'
     },
     '/property-occupied': {
+      behaviours: [saveDetails],
       fields: ['person-live-in', 'when-person-moved-in'],
       next: '/tenant-details'
     },
@@ -42,7 +44,8 @@ module.exports = {
       next: '/landlord-information'
     },
     '/landlord-information': {
-      fields: [],
+      fields: ['landlord-or-agent-name', 'landlord-or-agent-company',
+        'landlord-or-agent-email', 'landlord-or-agent-tel', 'landlord-or-agent-postcode'],
       next: '/rental-property'
     },
     '/rental-property': {
