@@ -19,7 +19,29 @@ module.exports = {
     ]
   },
   'tenants-contact-details': {
-    steps: []
+    steps: [
+      {
+        step: '/extra-tenant-details',
+        field: 'extra-tenant-tel'
+      },
+      {
+        step: '/extra-tenant-details',
+        field: 'extra-tenant-pob'
+      },
+      {
+        step: '/extra-tenant-details',
+        field: 'date-tenant-moved-uk',
+        parse: d => d && moment(d).format(PRETTY_DATE_FORMAT)
+      },
+      {
+        step: '/extra-tenant-details',
+        field: 'extra-tenant-email'
+      },
+      {
+        step: '/extra-tenant-details',
+        field: 'extra-tenant-ni-num'
+      }
+    ]
   },
   'landlord-agent-information': {
     steps: []
