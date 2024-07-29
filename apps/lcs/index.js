@@ -16,7 +16,6 @@ module.exports = {
       next: '/property-occupied'
     },
     '/property-occupied': {
-      behaviours: [saveDetails],
       fields: ['person-live-in', 'when-person-moved-in'],
       next: '/tenant-details'
     },
@@ -59,6 +58,7 @@ module.exports = {
       next: '/landlord-information'
     },
     '/landlord-information': {
+      behaviours: [saveDetails],
       fields: ['landlord-or-agent-name', 'landlord-or-agent-company',
         'landlord-or-agent-email', 'landlord-or-agent-tel', 'landlord-or-agent-postcode'],
       next: '/rental-property'

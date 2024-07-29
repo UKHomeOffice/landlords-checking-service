@@ -168,7 +168,7 @@ module.exports = {
   },
   'landlord-or-agent-email': {
     mixins: 'input-text',
-    validate: ['required', 'notUrl', 'email'],
+    validate: ['required', 'email'],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'landlord-or-agent-tel': {
