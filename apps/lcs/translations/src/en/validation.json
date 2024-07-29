@@ -42,7 +42,7 @@
   },
   "extra-tenant-tel": {
     "required": "Enter a telephone number",
-    "telephoneNumber": "Telephone number must be between 8 and 16 characters"
+    "internationalPhoneNumber": "Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
   "tenant-address-line-1": {
     "required": "Enter address line 1, typically the building and street"

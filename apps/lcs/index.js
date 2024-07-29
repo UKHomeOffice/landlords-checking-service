@@ -4,6 +4,7 @@ const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
 const dateBefore1989 = config.dateBefore1989;
+const checkValidation = require('./behaviours/date-validation.js');
 
 module.exports = {
   name: 'lcs',
@@ -34,11 +35,25 @@ module.exports = {
       ]
     },
     '/before-1988': {
-      fields: [],
-      next: '/extra-tenant-details'
+      fields: ['before-or-after-1988'],
+      next: '/extra-tenant-details',
+      forks: [
+        {
+          target: '/landlord-information',
+          condition: {
+            field: 'before-or-after-1988',
+            value: 'no'
+          }
+        }
+      ]
     },
     '/extra-tenant-details': {
-      fields: [],
+      behaviours: [checkValidation],
+      fields: ['date-tenant-moved-uk',
+        'extra-tenant-pob',
+        'extra-tenant-ni-num',
+        'extra-tenant-email',
+        'extra-tenant-tel'],
       next: '/landlord-information'
     },
     '/landlord-information': {

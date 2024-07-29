@@ -1,6 +1,7 @@
 const dateComponent = require('hof').components.date;
 const countries = require('hof').utils.countries();
 
+
 /**
  * Validation rule to exclude the value 'United Kingdom'.
  * @param {string} value - The value to be checked.
@@ -10,6 +11,11 @@ function excludeUK(value) {
   return value !== 'United Kingdom';
 }
 
+function niNumber(value) {
+  const NiN = value.toUpperCase();
+  // eslint-disable-next-line max-len
+  return NiN.match(/^(?!BG)(?!GB)(?!NK)(?!KN)(?!TN)(?!NT)(?!ZZ)(?:[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z])(?:\s*\d\s*){6}([A-D]|\s)$/);
+}
 module.exports = {
   'person-live-in': {
     isPageHeading: 'true',
@@ -106,6 +112,25 @@ module.exports = {
     ],
     className: ['govuk-label--s']
   }),
+  'extra-tenant-pob': {
+    mixin: 'input-text',
+    validate: 'required',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'extra-tenant-ni-num': {
+    mixin: 'input-text',
+    validate: ['required', niNumber],
+    className: ['govuk-input', 'govuk-input govuk-!-width-one-half']
+  },
+  'extra-tenant-email': {
+    mixin: 'input-text',
+    validate: 'email',
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'extra-tenant-tel': {
+    mixin: 'input-text',
+    validate: ['required', 'notUrl', 'internationalPhoneNumber']
+  },
   'tenant-address-line-1': {
     mixins: 'input-text',
     validate: 'required',
