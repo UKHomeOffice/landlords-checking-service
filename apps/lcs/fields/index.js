@@ -129,7 +129,7 @@ module.exports = {
   },
   'extra-tenant-tel': {
     mixin: 'input-text',
-    validate: ['required', 'notUrl', 'ukPhoneNumber']
+    validate: ['required', 'notUrl', 'internationalPhoneNumber']
   },
   'tenant-address-line-1': {
     mixins: 'input-text',

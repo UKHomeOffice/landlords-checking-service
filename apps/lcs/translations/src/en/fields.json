@@ -16,6 +16,8 @@
   },
   "before-or-after-1988": {
       "legend": "Has the prospective tenant been in the UK since before 1988?",
+      "isPageHeading:": true,
+      "className": "govuk-radios govuk-radios--inline",
       "options": {
         "yes": {
           "label": "Yes"
