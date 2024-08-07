@@ -3,6 +3,7 @@ const summary = hof.components.summary;
 const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
+const saveDetails = require('./behaviours/saving-details');
 const dateBefore1989 = config.dateBefore1989;
 const checkValidation = require('./behaviours/date-validation.js');
 
@@ -57,7 +58,9 @@ module.exports = {
       next: '/landlord-information'
     },
     '/landlord-information': {
-      fields: [],
+      behaviours: [saveDetails],
+      fields: ['landlord-or-agent-name', 'landlord-or-agent-company',
+        'landlord-or-agent-email', 'landlord-or-agent-tel', 'landlord-or-agent-postcode'],
       next: '/rental-property'
     },
     '/rental-property': {
