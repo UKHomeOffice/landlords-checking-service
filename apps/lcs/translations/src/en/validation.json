@@ -53,6 +53,9 @@
   "tenant-postcode": {
     "required": "Enter a postcode",
     "postcode": "Enter a real UK postcode"
+  },
+  "person-live-in": {
+    "required": "Tell us whether the person already lives in your property"
   }
 
 }

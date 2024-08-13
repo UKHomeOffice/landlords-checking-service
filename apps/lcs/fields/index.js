@@ -1,3 +1,5 @@
+const { mixins } = require('hof/frontend');
+
 const dateComponent = require('hof').components.date;
 const countries = require('hof').utils.countries();
 
