@@ -26,7 +26,7 @@ module.exports = {
     },
     '/tenant-address': {
       behaviours: [redirect],
-      fields: ['tenant-address-line-1' , 'tenant-address-line-2',
+      fields: ['tenant-address-line-1', 'tenant-address-line-2',
         'tenant-town-or-city', 'tenant-county', 'tenant-postcode'],
       next: '/landlord-information',
       forks: [
