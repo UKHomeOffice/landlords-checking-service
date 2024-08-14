@@ -170,6 +170,15 @@ p a[href] {
   .autocomplete__option {
     padding: 5px;
   }
+
+  .summary-hrline {
+    display: block;
+    background: #BFC1C3;
+    border: 0;
+    height: 1px;
+    margin-top: 15px;
+    padding: 0;
+  }
   
   @media (min-width: 641px) {
     .autocomplete__hint,
@@ -179,4 +188,3 @@ p a[href] {
       line-height: 1.31579;
     }
   }
-  

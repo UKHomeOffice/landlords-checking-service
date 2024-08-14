@@ -54,6 +54,9 @@
     "required": "Enter a postcode",
     "postcode": "Enter a real UK postcode"
   },
+  "person-live-in": {
+    "required": "Tell us whether the person already lives in your property"
+  },
   "landlord-or-agent-name": {
     "required": "Enter a full name",
     "maxLength": "Name must be 250 characters or less"

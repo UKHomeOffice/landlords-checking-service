@@ -22,7 +22,8 @@
     "header": "Landlord's or agent's details"
   },
   "rental-property": {
-  
+    "header": "Rental property address"
+    
   },
   "confirm": {
     "header": "Summary",

@@ -6,6 +6,7 @@ const sendNotification = require('./behaviours/submit-notify');
 const saveDetails = require('./behaviours/saving-details');
 const dateBefore1989 = config.dateBefore1989;
 const checkValidation = require('./behaviours/date-validation.js');
+const customRedirect = require('./behaviours/custom-redirect');
 
 module.exports = {
   name: 'lcs',
@@ -25,6 +26,7 @@ module.exports = {
       next: '/tenant-address'
     },
     '/tenant-address': {
+      behaviours: [customRedirect],
       fields: ['tenant-address-line-1', 'tenant-address-line-2',
         'tenant-town-or-city', 'tenant-county', 'tenant-postcode'],
       next: '/landlord-information',
