@@ -2,6 +2,7 @@
 'use strict';
 
 const moment = require('moment');
+const fields = require('../fields');
 const PRETTY_DATE_FORMAT = 'DD MMMM YYYY';
 
 module.exports = {
@@ -15,6 +16,43 @@ module.exports = {
         step: '/property-occupied',
         field: 'when-person-moved-in',
         parse: d => d && moment(d).format(PRETTY_DATE_FORMAT)
+      },
+      {
+        step: '/tenant-details',
+        field: 'ho-ref-number'
+      },
+      {
+        step: '/tenant-details',
+        field: 'tenant-full-name'
+      },
+      {
+        step: '/tenant-details',
+        field: 'tenant-dob',
+        parse: d => d && moment(d).format(PRETTY_DATE_FORMAT)
+      },
+      {
+        step: '/tenant-details',
+        field: 'tenant-nationality'
+      },
+      {
+        step: '/tenant-address',
+        field: 'tenant-address-line-1'
+      },
+      {
+        step: '/tenant-address',
+        field: 'tenant-address-line-2'
+      },
+      {
+        step: '/tenant-address',
+        field: 'tenant-town-or-city'
+      },
+      {
+        step: '/tenant-address',
+        field: 'tenant-county'
+      },
+      {
+        step: '/tenant-address',
+        field: 'tenant-postcode'
       }
     ]
   },
@@ -44,6 +82,50 @@ module.exports = {
     ]
   },
   'landlord-agent-information': {
-    steps: []
+    steps: [
+      {
+        step: '/landlord-information',
+        field: 'landlord-or-agent-name'
+      },
+      {
+        step: '/landlord-information',
+        field: 'landlord-or-agent-company'
+      },
+      {
+        step: '/landlord-information',
+        field: 'landlord-or-agent-email'
+      },
+      {
+        step: '/landlord-information',
+        field: 'landlord-or-agent-tel'
+      },
+      {
+        step: 'tenant-address',
+        field: 'tenant-address',
+        parse: (list, req) => {
+          if (!req.sessionModel.get('steps').includes('/tenant-address')) {
+            return null;
+          }
+      
+          const addressDetails = [];
+      
+          addressDetails.push(req.sessionModel.get('tenant-address-line-1') || '');
+          if(req.sessionModel.get('tenant-address-line-2')) {
+            addressDetails.push(req.sessionModel.get('tenant-address-line-2'));
+          }
+          addressDetails.push(req.sessionModel.get('tenant-town-or-city') || '');
+          if(req.sessionModel.get('tenant-county')) {
+            addressDetails.push(req.sessionModel.get('tenant-county'));
+          }
+          addressDetails.push(req.sessionModel.get('tenant-postcode') || '');
+          req.sessionModel.set('tenantAddressDetails', addressDetails.filter(line => line).join(', '));
+          return addressDetails.join('\n');
+        }
+      },      
+      {
+        step: '/tenant-address',
+        field: '/tenant-address'
+      },
+    ]
   }
 };

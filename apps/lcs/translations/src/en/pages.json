@@ -39,7 +39,32 @@
         "header": "Landlord’s or agent’s information"
       }
     },
-    "fields": {}
+    "fields": {
+      "tenant-county": {
+        "label": "County"
+      },
+      "tenant-address-line-2": {
+        "label": "Address line 2"
+      },
+      "extra-tenant-email": {
+        "label": "Email address"
+      },
+      "landlord-or-agent-company": {
+        "label": "Company name"
+      },
+      "extra-tenant-tel": {
+        "label": "Contact telephone number"
+      },
+      "date-tenant-moved-uk": {
+        "label": "Date of entry"
+      },
+      "landlord-or-agent-tel": {
+        "label": "Telephone number"
+      },
+      "tenant-address": {
+        "label": "Rental property address"
+      }
+    }
   },
   "privacy-policy": {
     "header": "Privacy policy"
