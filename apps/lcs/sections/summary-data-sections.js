@@ -113,19 +113,15 @@ module.exports = {
           if (!req.sessionModel.get('steps').includes('/tenant-address')) {
             return null;
           }
-
-          const addressDetails = [];
-
-          addressDetails.push(req.sessionModel.get('tenant-address-line-1') || '');
-          if(req.sessionModel.get('tenant-address-line-2')) {
-            addressDetails.push(req.sessionModel.get('tenant-address-line-2'));
-          }
-          addressDetails.push(req.sessionModel.get('tenant-town-or-city') || '');
-          if(req.sessionModel.get('tenant-county')) {
-            addressDetails.push(req.sessionModel.get('tenant-county'));
-          }
-          addressDetails.push(req.sessionModel.get('tenant-postcode') || '');
-          req.sessionModel.set('tenantAddressDetails', addressDetails.filter(line => line).join(', '));
+          let addressDetails = [
+            req.sessionModel.get('tenant-address-line-1'),
+            req.sessionModel.get('tenant-address-line-2'),
+            req.sessionModel.get('tenant-town-or-city'),
+            req.sessionModel.get('tenant-county'),
+            req.sessionModel.get('tenant-postcode')
+          ];
+          addressDetails = addressDetails.filter(line => line);
+          req.sessionModel.set('tenantAddressDetails', addressDetails.join(', '));
           return addressDetails.join('\n');
         }
       },
