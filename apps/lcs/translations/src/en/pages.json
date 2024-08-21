@@ -61,7 +61,7 @@
       "landlord-or-agent-tel": {
         "label": "Telephone number"
       },
-      "tenant-address": {
+      "tenant-address-details": {
         "label": "Rental property address"
       }
     }

@@ -2,7 +2,6 @@
 'use strict';
 
 const moment = require('moment');
-const fields = require('../fields');
 const PRETTY_DATE_FORMAT = 'DD MMMM YYYY';
 
 module.exports = {
@@ -15,7 +14,15 @@ module.exports = {
       {
         step: '/property-occupied',
         field: 'when-person-moved-in',
-        parse: d => d && moment(d).format(PRETTY_DATE_FORMAT)
+        parse: (value, req) => {
+          if (!req.sessionModel.get('steps').includes('/property-occupied')) {
+            return null;
+          }
+          if(req.sessionModel.get('person-live-in') === 'no') {
+            return 'Not Applicable';
+          }
+          return value && moment(value).format(PRETTY_DATE_FORMAT);
+        }
       },
       {
         step: '/tenant-details',
@@ -101,14 +108,14 @@ module.exports = {
       },
       {
         step: 'tenant-address',
-        field: 'tenant-address',
+        field: 'tenant-address-details',
         parse: (list, req) => {
           if (!req.sessionModel.get('steps').includes('/tenant-address')) {
             return null;
           }
-      
+
           const addressDetails = [];
-      
+
           addressDetails.push(req.sessionModel.get('tenant-address-line-1') || '');
           if(req.sessionModel.get('tenant-address-line-2')) {
             addressDetails.push(req.sessionModel.get('tenant-address-line-2'));
@@ -121,11 +128,11 @@ module.exports = {
           req.sessionModel.set('tenantAddressDetails', addressDetails.filter(line => line).join(', '));
           return addressDetails.join('\n');
         }
-      },      
+      },
       {
         step: '/tenant-address',
         field: '/tenant-address'
-      },
+      }
     ]
   }
 };
