@@ -15,8 +15,8 @@ module.exports = {
         step: '/property-occupied',
         field: 'when-person-moved-in',
         parse: (value, req) => {
-          if (!req.sessionModel.get('steps').includes('/property-occupied')) {
-            return null;
+          if(req.sessionModel.get('person-live-in') === 'no') {
+             return null;
           }
           return value && moment(value).format(PRETTY_DATE_FORMAT);
         }
