@@ -16,7 +16,7 @@ module.exports = {
         field: 'when-person-moved-in',
         parse: (value, req) => {
           if(req.sessionModel.get('person-live-in') === 'no') {
-             return null;
+            return null;
           }
           return value && moment(value).format(PRETTY_DATE_FORMAT);
         }
