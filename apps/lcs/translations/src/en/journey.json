@@ -1,5 +1,9 @@
 {
   "header": "Request a right to rent check",
   "serviceName": "Request a right to rent check",
-  "phase": "beta"
+  "phase": "beta",
+  "tenantType": {
+    "yes": "Tenant",
+    "no": "Prospective tenant"
+  }
 }

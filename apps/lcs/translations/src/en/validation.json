@@ -1,4 +1,7 @@
 {
+  "person-live-in": {
+    "required": "Tell us whether the person already lives in your property"
+  },
   "when-person-moved-in": {
     "required": "Tell us when the tenant moved into the property",
     "notUrl": "Your answer must not contain URLs or links",
@@ -7,13 +10,13 @@
     "before": "This date must not be in the future"
   },
   "tenant-full-name": {
-    "required": "Enter the [X]'s full name"
+    "required": "Enter the {{valuesEnriched.tenantType}}'s full name"
   },
   "tenant-dob": {
-    "required": "Enter the [X]'s date of birth",
-    "test": "[X] cannot be born after they moved into the rental property. Enter a date after [Y].",
+    "required": "Enter the {{valuesEnriched.tenantType}}'s date of birth",
+    "test": "{{valuesEnriched.tenantType}} cannot be born after they moved into the rental property. Enter a date after {{valuesEnriched.tenantDoB}}.",
     "after": "Enter a real date of birth",
-    "over18": "The [X] must be 18 years or older. The right to rent scheme does not apply to children."
+    "over18": "The {{valuesEnriched.tenantType}} must be 18 years or older. The right to rent scheme does not apply to children."
   },
   "tenant-nationality": {
     "required": "Select a country of nationality from the list"
@@ -25,7 +28,7 @@
     "required": "Confirm you have read the Data Protection statement"
   },
   "before-or-after-1988": {
-    "required": "Tell us whether the [X] came to the UK before 1988"
+    "required": "Tell us whether the {{valuesEnriched.tenantType}} came to the UK before 1988"
   },
   "extra-tenant-pob": {
     "required": "Enter a place of birth"
@@ -36,9 +39,9 @@
   },
   "date-tenant-moved-uk": {
     "required": "Enter a date the tenant came to the UK",
-    "after120years": "Enter a real date the [X] came to the UK",
+    "after120years": "Enter a real date the {{valuesEnriched.tenantType}} came to the UK",
     "before": "Date must be before 1988",
-    "dateAfterDob": "Date must be after the [X]'s date of birth. Enter a date after [Y]" 
+    "dateAfterDob": "Date must be after the {{valuesEnriched.tenantType}}'s date of birth. Enter a date after {{tenantDoB}}" 
   },
   "extra-tenant-tel": {
     "required": "Enter a telephone number",
@@ -53,9 +56,6 @@
   "tenant-postcode": {
     "required": "Enter a postcode",
     "postcode": "Enter a real UK postcode"
-  },
-  "person-live-in": {
-    "required": "Tell us whether the person already lives in your property"
   },
   "landlord-or-agent-name": {
     "required": "Enter a full name",

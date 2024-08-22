@@ -6,11 +6,11 @@
     
   },
   "tenant-details": {
-    "header": "Tenant's details"
+    "header": "{{values.valuesEnriched.tenantType}}'s details"
     
   },
   "tenant-address": {
-    "header": "Tenant’s current address"
+    "header": "{{values.valuesEnriched.tenantType}}’s current address"
   },
   "before-1988": {
     
@@ -30,10 +30,10 @@
     "instructions": "Please check these details carefully before continuing. If any of the details are incorrect, please change them.",
     "sections": {
       "tenants-information": {
-        "header": "Tenant’s or prospective tenant’s information"
+        "header": "{{values.valuesEnriched.tenantType}}’s information"
       },
       "tenants-contact-details": {
-        "header": "Tenant’s or prospective tenant’s contact details"
+        "header": "{{values.valuesEnriched.tenantType}}’s contact details"
       },
       "landlord-agent-information": {
         "header": "Landlord’s or agent’s information"
