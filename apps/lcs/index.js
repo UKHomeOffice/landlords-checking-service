@@ -15,19 +15,36 @@ const steps =  {
     next: '/property-occupied'
   },
   '/property-occupied': {
-    behaviours: [valuesEnricher('person-live-in', 'tenantType'), valuesEnricher('when-person-moved-in', 'tenantMovedIn')],
+    behaviours: [
+      valuesEnricher('person-live-in', 'tenantType'),
+      valuesEnricher('when-person-moved-in', 'tenantMovedIn')
+    ],
     fields: ['person-live-in', 'when-person-moved-in'],
     next: '/tenant-details'
   },
   '/tenant-details': {
-    behaviours: [hof.components.homeOfficeCountries, customValidation, valuesEnricher('tenant-dob', 'tenantDoB')],
-    fields: ['tenant-full-name', 'tenant-dob', 'tenant-nationality', 'ho-ref-number'],
+    behaviours: [
+      hof.components.homeOfficeCountries,
+      customValidation,
+      valuesEnricher('tenant-dob', 'tenantDoB')
+    ],
+    fields: [
+      'tenant-full-name',
+      'tenant-dob',
+      'tenant-nationality',
+      'ho-ref-number'
+    ],
     next: '/tenant-address'
   },
   '/tenant-address': {
     behaviours: [customRedirect],
-    fields: ['tenant-address-line-1', 'tenant-address-line-2',
-      'tenant-town-or-city', 'tenant-county', 'tenant-postcode'],
+    fields: [
+      'tenant-address-line-1',
+      'tenant-address-line-2',
+      'tenant-town-or-city',
+      'tenant-county',
+      'tenant-postcode'
+    ],
     next: '/landlord-information',
     forks: [
       {
@@ -60,8 +77,13 @@ const steps =  {
   },
   '/landlord-information': {
     behaviours: [saveDetails],
-    fields: ['landlord-or-agent-name', 'landlord-or-agent-company',
-      'landlord-or-agent-email', 'landlord-or-agent-tel', 'landlord-or-agent-postcode'],
+    fields: [
+      'landlord-or-agent-name',
+      'landlord-or-agent-company',
+      'landlord-or-agent-email',
+      'landlord-or-agent-tel',
+      'landlord-or-agent-postcode'
+    ],
     next: '/rental-property'
   },
   '/rental-property': {
