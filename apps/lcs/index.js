@@ -5,7 +5,7 @@ const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
 const saveDetails = require('./behaviours/saving-details');
 const dateBefore1989 = config.dateBefore1989;
-const checkValidation = require('./behaviours/date-validation.js');
+const customValidation = require('./behaviours/custom-validation.js');
 const customRedirect = require('./behaviours/custom-redirect');
 const valuesEnricher = require('./behaviours/values-enricher')(config);
 const localsEnricher  = require('./behaviours/locals-enricher');
@@ -15,19 +15,36 @@ const steps =  {
     next: '/property-occupied'
   },
   '/property-occupied': {
-    behaviours: [valuesEnricher('person-live-in', 'tenantType')],
+    behaviours: [
+      valuesEnricher('person-live-in', 'tenantType'),
+      valuesEnricher('when-person-moved-in', 'tenantMovedIn')
+    ],
     fields: ['person-live-in', 'when-person-moved-in'],
     next: '/tenant-details'
   },
   '/tenant-details': {
-    behaviours: [hof.components.homeOfficeCountries, checkValidation, valuesEnricher('tenant-dob', 'tenantDoB')],
-    fields: ['tenant-full-name', 'tenant-dob', 'tenant-nationality', 'ho-ref-number'],
+    behaviours: [
+      hof.components.homeOfficeCountries,
+      customValidation,
+      valuesEnricher('tenant-dob', 'tenantDoB')
+    ],
+    fields: [
+      'tenant-full-name',
+      'tenant-dob',
+      'tenant-nationality',
+      'ho-ref-number'
+    ],
     next: '/tenant-address'
   },
   '/tenant-address': {
     behaviours: [customRedirect],
-    fields: ['tenant-address-line-1', 'tenant-address-line-2',
-      'tenant-town-or-city', 'tenant-county', 'tenant-postcode'],
+    fields: [
+      'tenant-address-line-1',
+      'tenant-address-line-2',
+      'tenant-town-or-city',
+      'tenant-county',
+      'tenant-postcode'
+    ],
     next: '/landlord-information',
     forks: [
       {
@@ -50,7 +67,7 @@ const steps =  {
     ]
   },
   '/extra-tenant-details': {
-    behaviours: [checkValidation],
+    behaviours: [customValidation],
     fields: ['date-tenant-moved-uk',
       'extra-tenant-pob',
       'extra-tenant-ni-num',
@@ -60,8 +77,13 @@ const steps =  {
   },
   '/landlord-information': {
     behaviours: [saveDetails],
-    fields: ['landlord-or-agent-name', 'landlord-or-agent-company',
-      'landlord-or-agent-email', 'landlord-or-agent-tel', 'landlord-or-agent-postcode'],
+    fields: [
+      'landlord-or-agent-name',
+      'landlord-or-agent-company',
+      'landlord-or-agent-email',
+      'landlord-or-agent-tel',
+      'landlord-or-agent-postcode'
+    ],
     next: '/rental-property'
   },
   '/rental-property': {
