@@ -92,7 +92,7 @@
   "landlord-or-agent-tel": {
     "label": "Telephone number (optional)"
   },
-  "landlord-or-agent-postcode": {
-    "label": "Postcode"
+  "rental-property-postcode": {
+    "label": "Rental property postcode"
   }
 }

@@ -63,6 +63,9 @@
       },
       "tenant-address-details": {
         "label": "Rental property address"
+      },
+      "rental-property-postcode": {
+        "label": "Rental property postcode"
       }
     }
   },
