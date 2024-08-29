@@ -62,7 +62,7 @@ module.exports = {
       'date',
       'over18',
       { type: 'after', arguments: ['120', 'years'] }
-    ],
+    ], // additional validation rules added in custom-validation.js
     legend: {
       className: ''
     }
@@ -109,7 +109,7 @@ module.exports = {
     validate: [
       'required',
       'date'
-    ],
+    ], // additional validation rules added in custom-validation.js
     className: ['govuk-label--s']
   }),
   'extra-tenant-pob': {
@@ -129,7 +129,8 @@ module.exports = {
   },
   'extra-tenant-tel': {
     mixin: 'input-text',
-    validate: ['required', 'notUrl', 'internationalPhoneNumber']
+    validate: ['required'], // additional validation rules added in custom-validation.js
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-address-line-1': {
     mixins: 'input-text',
@@ -173,12 +174,17 @@ module.exports = {
   },
   'landlord-or-agent-tel': {
     mixins: 'input-text',
-    validate: [ 'notUrl', 'internationalPhoneNumber'],
+    validate: ['required'], // additional validation rules added in custom-validation.js
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
-  'landlord-or-agent-postcode': {
+  'rental-property-postcode': {
     mixins: 'input-text',
-    validate: ['required', 'postcode'],
-    className: ['govuk-input', 'govuk-!-width-two-thirds']
+    formatter: ['ukPostcode'],
+    validate: ['required', 'postcode'], // additional validation rules added in custom-validation.js
+    dependent: {
+      field: 'person-live-in',
+      value: 'no'
+    },
+    className: ['govuk-input', 'govuk-input--width-10']
   }
 };

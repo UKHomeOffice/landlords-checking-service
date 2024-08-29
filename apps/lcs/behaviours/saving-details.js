@@ -1,11 +1,9 @@
-module.exports = superclass => class extends superclass {
-  configure(req, res, next) {
-    const isTenantLivedInProperty = req.sessionModel.get('person-live-in');
-    const isCurrentTenant = isTenantLivedInProperty === 'yes' ? true : false;
-    req.sessionModel.set('isCurrentTenant', isCurrentTenant);
-    if (!isCurrentTenant) {
-      req.form.options.fields['landlord-or-agent-postcode'] = {};
+module.exports = fieldKey => superclass => class extends superclass {
+  successHandler(req, res, next) {
+    if (fieldKey === 'person-live-in') {
+      const isCurrentTenant = req.sessionModel.get(fieldKey) === 'yes' ? true : false;
+      req.sessionModel.set('isCurrentTenant', isCurrentTenant);
     }
-    return super.configure(req, res, next);
+    return super.successHandler(req, res, next);
   }
 };

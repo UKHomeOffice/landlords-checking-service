@@ -16,6 +16,7 @@ const steps =  {
   },
   '/property-occupied': {
     behaviours: [
+      saveDetails('person-live-in'),
       valuesEnricher('person-live-in', 'tenantType'),
       valuesEnricher('when-person-moved-in', 'tenantMovedIn')
     ],
@@ -72,19 +73,29 @@ const steps =  {
       'extra-tenant-pob',
       'extra-tenant-ni-num',
       'extra-tenant-email',
-      'extra-tenant-tel'],
+      'extra-tenant-tel'
+    ],
     next: '/landlord-information'
   },
   '/landlord-information': {
-    behaviours: [saveDetails],
+    behaviours: [customValidation],
     fields: [
       'landlord-or-agent-name',
       'landlord-or-agent-company',
       'landlord-or-agent-email',
       'landlord-or-agent-tel',
-      'landlord-or-agent-postcode'
+      'rental-property-postcode'
     ],
-    next: '/rental-property'
+    next: '/confirm',
+    forks: [
+      {
+        target: '/rental-property',
+        condition: {
+          field: 'person-live-in',
+          value: 'yes'
+        }
+      }
+    ]
   },
   '/rental-property': {
     fields: [],
