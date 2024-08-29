@@ -174,7 +174,7 @@ module.exports = {
   },
   'landlord-or-agent-tel': {
     mixins: 'input-text',
-    validate: ['required'], // additional validation rules added in custom-validation.js
+    validate: [], // additional validation rules added in custom-validation.js
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'rental-property-postcode': {
