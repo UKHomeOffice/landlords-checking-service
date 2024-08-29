@@ -16,6 +16,8 @@ const getLabel = (fieldKey, fieldValue) => {
 
 const getPersonalisation = (recipientType, req) => {
   const basePersonalisation = {
+    is_tenant: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?? '',
+    is_prospective_tenant: req.sessionModel.get('valuesEnriched').tenantType === 'Prospective tenant' ?? '',
     existing_occupier: getLabel('person-live-in', req.sessionModel.get('person-live-in')),
     is_existing_occupier: getLabel('person-live-in', req.sessionModel.get('person-live-in')) === 'Yes' ? 'yes' : 'no',
     person_moved_into_property: req.sessionModel.get('when-person-moved-in') ? moment(req.sessionModel.get('when-person-moved-in')).format('L') :
