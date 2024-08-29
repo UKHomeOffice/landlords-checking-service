@@ -1,12 +1,12 @@
 {{<partials-page}}
   {{$page-content}}
     {{#input-text}}landlord-or-agent-name{{/input-text}}
+    {{^values.isCurrentTenant}}
+      {{#input-text}}rental-property-postcode{{/input-text}}
+    {{/values.isCurrentTenant}}
     {{#input-text}}landlord-or-agent-company{{/input-text}}
     {{#input-text}}landlord-or-agent-email{{/input-text}}
     {{#input-text}}landlord-or-agent-tel{{/input-text}}
-    {{#values.isCurrentTenant}}
-      {{#input-text}}landlord-or-agent-postcode{{/input-text}}
-    {{/values.isCurrentTenant}}
     {{#input-submit}}continue{{/input-submit}}
   {{/page-content}}
   {{/partials-page}}

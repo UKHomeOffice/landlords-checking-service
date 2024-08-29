@@ -37,6 +37,9 @@
     "required": "Enter a National Insurance number",
     "niNumber": "Enter a National Insurance number in the correct format"
   },
+  "extra-tenant-email": {
+    "email": "Enter a real email address"
+  },
   "date-tenant-moved-uk": {
     "required": "Enter a date the tenant came to the UK",
     "after120years": "Enter a real date the {{valuesEnriched.tenantType}} came to the UK",
@@ -69,9 +72,9 @@
     "email": "Enter a real email address"
   },
   "landlord-or-agent-tel": {
-    "internationalPhoneNumber": "Telephone number must be between 8 and 15 characters"
+    "internationalPhoneNumber": "Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
-  "landlord-or-agent-postcode": {
+  "rental-property-postcode": {
     "required": "Enter a postcode",
     "postcode": "Enter a real UK postcode"
   }

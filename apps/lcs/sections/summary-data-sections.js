@@ -93,6 +93,10 @@ module.exports = {
       },
       {
         step: '/landlord-information',
+        field: 'rental-property-postcode'
+      },
+      {
+        step: '/landlord-information',
         field: 'landlord-or-agent-company'
       },
       {
@@ -107,7 +111,7 @@ module.exports = {
         step: 'tenant-address',
         field: 'tenant-address-details',
         parse: (list, req) => {
-          if (!req.sessionModel.get('steps').includes('/tenant-address')) {
+          if (!req.sessionModel.get('isCurrentTenant')) {
             return null;
           }
           let addressDetails = [
