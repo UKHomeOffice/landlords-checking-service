@@ -1,6 +1,5 @@
 const validators = require('hof/controller/validation/validators');
 const config = require('../../../config.js');
-const dateBefore1988 = config.dateBefore1988;
 
 module.exports = superclass => class extends superclass {
   validateField(key, req) {
@@ -12,6 +11,9 @@ module.exports = superclass => class extends superclass {
 
       if(!dateToBeValidated) {
         return validationErrorFunc('required');
+      }
+      if(!validators.date(dateToBeValidated)) {
+        return validationErrorFunc('date');
       }
       if(tenantMovedIn && !validators.before(dateToBeValidated, tenantMovedIn)) {
         return validationErrorFunc('dobBeforeMovedIn');
@@ -25,9 +27,8 @@ module.exports = superclass => class extends superclass {
       if(!dateToBeValidated) {
         return validationErrorFunc('required');
       }
-      if(req.sessionModel.get('before-or-after-1988') === 'yes'
-      && !validators.before(dateToBeValidated, dateBefore1988)) {
-        return validationErrorFunc('before');
+      if(!validators.date(dateToBeValidated)) {
+        return validationErrorFunc('date');
       }
       if(!validators.after(dateToBeValidated, '120', 'years')) {
         return validationErrorFunc('after120years');
@@ -35,6 +36,11 @@ module.exports = superclass => class extends superclass {
       if(!validators.after(dateToBeValidated, tenantDob)) {
         return validationErrorFunc('dateAfterDob');
       }
+      if(!validators.before(dateToBeValidated, config.startOf1988)) {
+        return validationErrorFunc('before');
+      }
+      
+      
     }
 
     if(key === 'rental-property-postcode') {

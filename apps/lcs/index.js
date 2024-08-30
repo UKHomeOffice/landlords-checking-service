@@ -4,7 +4,6 @@ const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
 const saveDetails = require('./behaviours/saving-details');
-const dateBefore1989 = config.dateBefore1989;
 const customValidation = require('./behaviours/custom-validation.js');
 const customRedirect = require('./behaviours/custom-redirect');
 const valuesEnricher = require('./behaviours/values-enricher')(config);
@@ -50,18 +49,18 @@ const steps =  {
     forks: [
       {
         target: '/before-1988',
-        condition: req => req.sessionModel.get('tenant-dob') <= dateBefore1989
+        condition: req => req.sessionModel.get('tenant-dob') < config.startOf1988
       }
     ]
   },
   '/before-1988': {
-    fields: ['before-or-after-1988'],
+    fields: ['in-uk-before-1988'],
     next: '/extra-tenant-details',
     forks: [
       {
         target: '/landlord-information',
         condition: {
-          field: 'before-or-after-1988',
+          field: 'in-uk-before-1988',
           value: 'no'
         }
       }
