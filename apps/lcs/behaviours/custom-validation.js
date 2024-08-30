@@ -39,8 +39,6 @@ module.exports = superclass => class extends superclass {
       if(!validators.before(dateToBeValidated, config.startOf1988)) {
         return validationErrorFunc('before');
       }
-      
-      
     }
 
     if(key === 'rental-property-postcode') {
