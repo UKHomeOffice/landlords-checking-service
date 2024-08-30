@@ -5,7 +5,7 @@
   "when-person-moved-in": {
     "required": "Tell us when the tenant moved into the property",
     "notUrl": "Your answer must not contain URLs or links",
-    "date": "Enter a real date of birth",
+    "date": "Enter a real date",
     "after": "This service only applies to tenants who moved in after 30 November 2014",
     "before": "This date must not be in the future"
   },
