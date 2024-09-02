@@ -38,7 +38,7 @@ const steps =  {
     next: '/tenant-address'
   },
   '/tenant-address': {
-    behaviours: [customRedirect],
+    behaviours: [customRedirect, saveDetails()],
     fields: [
       'tenant-address-line-1',
       'tenant-address-line-2',

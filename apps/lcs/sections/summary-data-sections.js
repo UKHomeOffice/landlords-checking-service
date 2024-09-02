@@ -114,15 +114,8 @@ module.exports = {
           if (!req.sessionModel.get('isCurrentTenant')) {
             return null;
           }
-          let addressDetails = [
-            req.sessionModel.get('tenant-address-line-1'),
-            req.sessionModel.get('tenant-address-line-2'),
-            req.sessionModel.get('tenant-town-or-city'),
-            req.sessionModel.get('tenant-county'),
-            req.sessionModel.get('tenant-postcode')
-          ];
-          addressDetails = addressDetails.filter(line => line);
-          req.sessionModel.set('tenantAddressDetails', addressDetails.join(', '));
+          let addressDetails = [];
+          addressDetails = req.sessionModel.get('tenantAddress');
           return addressDetails.join('\n');
         }
       },
