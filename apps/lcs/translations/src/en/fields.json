@@ -14,8 +14,8 @@
     "legend": "When did the tenant move into your property?",
     "hint": "For example 21 3 2015"
   },
-  "before-or-after-1988": {
-      "legend": "Has the prospective tenant been in the UK since before 1988?",
+  "in-uk-before-1988": {
+      "legend": "Has the {{values.valuesEnriched.tenantType}} been in the UK since before 1988?",
       "isPageHeading:": true,
       "className": "govuk-radios govuk-radios--inline",
       "options": {
