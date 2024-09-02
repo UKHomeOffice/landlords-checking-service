@@ -17,10 +17,10 @@ const localsEnricher  = require('./behaviours/locals-enricher');
  * @returns {boolean} - Returns true if the tenant's DOB is before the start of 1988 and not equal to the excluded date.
  */
 function shouldRedirectToBefore1988(tenantDob, startOf1988) {
-  const excludedDate = '1987-12-30';
+  const excludedDate = '1987-12-31';
 
   /**
-   * If the tenant's date of birth is before the cutoff date and not equal to 1987-12-30,
+   * If the tenant's date of birth is before the cutoff date and not equal to 1987-12-31,
    * then redirect to '/before-1988'. This allows tenants born on 1987-12-30 to enter
    * 1987-12-31 as their date of entry to the UK on the '/extra-tenant-details' page and progress.
    */
