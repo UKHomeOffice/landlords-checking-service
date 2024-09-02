@@ -114,9 +114,7 @@ module.exports = {
           if (!req.sessionModel.get('isCurrentTenant')) {
             return null;
           }
-          let addressDetails = [];
-          addressDetails = req.sessionModel.get('tenantAddress');
-          return addressDetails.join('\n');
+          return req.sessionModel.get('tenantAddress').join('\n');
         }
       },
       {
