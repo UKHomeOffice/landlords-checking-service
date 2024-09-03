@@ -39,7 +39,7 @@ const getPersonalisation = (recipientType, req) => {
     landlord_company: req.sessionModel.get('landlord-or-agent-company'),
     landlord_email: req.sessionModel.get('landlord-or-agent-email'),
     landlord_tel: req.sessionModel.get('landlord-or-agent-tel'),
-    rental_postcode: req.sessionModel.get('valuesEnriched').tenantType === 'Prospective tenant' ?
+    prospective_rental_postcode: req.sessionModel.get('valuesEnriched').tenantType === 'Prospective tenant' ?
       req.sessionModel.get('rental-property-postcode') : '',
     rental_property_address: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
       req.sessionModel.get('tenantAddress').join('\n') : '',
@@ -47,7 +47,17 @@ const getPersonalisation = (recipientType, req) => {
     tenant_address_line_2: req.sessionModel.get('tenant-address-line-2') ?? '',
     tenant_town_or_city: req.sessionModel.get('tenant-town-or-city'),
     tenant_county: req.sessionModel.get('tenant-county') ?? '',
-    tenant_postcode: req.sessionModel.get('tenant-postcode')
+    tenant_postcode: req.sessionModel.get('tenant-postcode'),
+    rental_address_line_1: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
+      req.sessionModel.get('tenant-address-line-1') : '',
+    rental_address_line_2: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
+      req.sessionModel.get('tenant-address-line-2') : '',
+    rental_town_or_city: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
+      req.sessionModel.get('tenant-town-or-city') : '',
+    rental_county: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
+      req.sessionModel.get('tenant-county') : '',
+    rental_postcode: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
+      req.sessionModel.get('rental-property-postcode') : '',
   };
   return {
     ...basePersonalisation
