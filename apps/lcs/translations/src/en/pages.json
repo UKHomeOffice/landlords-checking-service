@@ -10,6 +10,7 @@
     
   },
   "tenant-address": {
+    "intro": "The tenant must currently live in the UK. If the tenant lives outside the UK, you do not need to request a right to rent check.",
     "header": "{{values.valuesEnriched.tenantType}}’s current address"
   },
   "before-1988": {
