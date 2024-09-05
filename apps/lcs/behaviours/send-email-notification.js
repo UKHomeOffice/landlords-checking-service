@@ -57,7 +57,7 @@ const getPersonalisation = (recipientType, req) => {
     rental_county: req.sessionModel.get('isCurrentTenant') ?
       req.sessionModel.get('tenant-county') : '',
     rental_postcode: req.sessionModel.get('isCurrentTenant') ?
-      req.sessionModel.get('tenant-postcode') : '',
+      req.sessionModel.get('tenant-postcode') : ''
   };
   return {
     ...basePersonalisation
