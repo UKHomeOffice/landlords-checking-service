@@ -58,8 +58,6 @@ module.exports = {
   'tenant-dob': dateComponent('tenant-dob', {
     mixin: 'input-date',
     validate: [
-      'required',
-      'date',
       'over18',
       { type: 'after', arguments: ['120', 'years'] }
     ], // additional validation rules added in custom-validation.js
@@ -77,7 +75,7 @@ module.exports = {
     options: [{
       value: '',
       label: 'fields.tenant-nationality.options.none_selected'
-    }].concat(countries),
+    }].concat(countries.filter(country => country.value !== 'United Kingdom')),
     labelClassName: ''
   },
   'ho-ref-number': {
@@ -90,7 +88,7 @@ module.exports = {
     mixin: 'checkbox',
     validate: ['required']
   },
-  'before-or-after-1988': {
+  'in-uk-before-1988': {
     isPageHeading: 'true',
     mixin: 'radio-group',
     validate: 'required',
@@ -106,10 +104,7 @@ module.exports = {
   },
   'date-tenant-moved-uk': dateComponent('date-tenant-moved-uk', {
     mixin: 'input-date',
-    validate: [
-      'required',
-      'date'
-    ], // additional validation rules added in custom-validation.js
+    validate: [], // additional validation rules added in custom-validation.js
     className: ['govuk-label--s']
   }),
   'extra-tenant-pob': {

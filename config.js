@@ -19,6 +19,5 @@ module.exports = {
     userConfirmationTemplateId: process.env.USER_CONFIRMATION_TEMPLATE_ID,
     businessConfirmationTemplateId: process.env.BUSINESS_CONFIRMATION_TEMPLATE_ID
   },
-  dateBefore1988: '1987-12-31',
-  dateBefore1989: '1988-12-31'
+  startOf1988: '1988-01-01'
 };

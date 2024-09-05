@@ -4,11 +4,28 @@ const config = require('../../config');
 const clearSession = require('./behaviours/clear-session');
 const sendNotification = require('./behaviours/submit-notify');
 const saveDetails = require('./behaviours/saving-details');
-const dateBefore1989 = config.dateBefore1989;
 const customValidation = require('./behaviours/custom-validation.js');
 const customRedirect = require('./behaviours/custom-redirect');
 const valuesEnricher = require('./behaviours/values-enricher')(config);
 const localsEnricher  = require('./behaviours/locals-enricher');
+
+/**
+ * Checks if the user should be redirected to the '/before-1988' page based on the tenant's date of birth.
+ *
+ * @param {string} tenantDob - The tenant's date of birth in ISO format.
+ * @param {string} startOf1988 - The start date of 1988 in ISO format.
+ * @returns {boolean} - Returns true if the tenant's DOB is before the start of 1988 and not equal to the excluded date.
+ */
+function shouldRedirectToBefore1988(tenantDob, startOf1988) {
+  const excludedDate = '1987-12-31';
+
+  /**
+   * If the tenant's date of birth is before the cutoff date and not equal to 1987-12-31,
+   * then redirect to '/before-1988'. This allows tenants born on 1987-12-30 to enter
+   * 1987-12-31 as their date of entry to the UK on the '/extra-tenant-details' page and progress.
+   */
+  return tenantDob < startOf1988 && tenantDob !== excludedDate;
+}
 
 const steps =  {
   '/start': {
@@ -50,18 +67,18 @@ const steps =  {
     forks: [
       {
         target: '/before-1988',
-        condition: req => req.sessionModel.get('tenant-dob') <= dateBefore1989
+        condition: req => shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'), config.startOf1988)
       }
     ]
   },
   '/before-1988': {
-    fields: ['before-or-after-1988'],
+    fields: ['in-uk-before-1988'],
     next: '/extra-tenant-details',
     forks: [
       {
         target: '/landlord-information',
         condition: {
-          field: 'before-or-after-1988',
+          field: 'in-uk-before-1988',
           value: 'no'
         }
       }
