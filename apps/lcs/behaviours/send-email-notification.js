@@ -15,8 +15,8 @@ const getLabel = (fieldKey, fieldValue) => {
 
 const getPersonalisation = (recipientType, req) => {
   const basePersonalisation = {
-    is_tenant: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?? '',
-    is_prospective_tenant: req.sessionModel.get('valuesEnriched').tenantType === 'Prospective tenant' ?? '',
+    is_tenant: req.sessionModel.get('isCurrentTenant') ?? '',
+    is_prospective_tenant: !req.sessionModel.get('isCurrentTenant') ?? '',
     existing_occupier: getLabel('person-live-in', req.sessionModel.get('person-live-in')),
     is_existing_occupier: getLabel('person-live-in', req.sessionModel.get('person-live-in')) === 'Yes' ? 'yes' : 'no',
     person_moved_into_property: req.sessionModel.get('when-person-moved-in') ?
@@ -25,7 +25,7 @@ const getPersonalisation = (recipientType, req) => {
     full_name: req.sessionModel.get('tenant-full-name'),
     date_of_birth: moment(req.sessionModel.get('tenant-dob')).format(PRETTY_DATE_FORMAT),
     country_of_nationality: req.sessionModel.get('tenant-nationality'),
-    full_address: req.sessionModel.get('tenantAddress').join('\n'),
+    full_address: req.sessionModel.get('tenantAddress').join(', '),
     is_before_1988: req.sessionModel.get('steps').includes('/before-1988') &&
       req.sessionModel.get('before-or-after-1988') ?
       getLabel('before-or-after-1988', req.sessionModel.get('before-or-after-1988')) : '',
@@ -39,10 +39,25 @@ const getPersonalisation = (recipientType, req) => {
     landlord_company: req.sessionModel.get('landlord-or-agent-company'),
     landlord_email: req.sessionModel.get('landlord-or-agent-email'),
     landlord_tel: req.sessionModel.get('landlord-or-agent-tel'),
-    rental_postcode: req.sessionModel.get('valuesEnriched').tenantType === 'Prospective tenant' ?
+    prospective_rental_postcode: !req.sessionModel.get('isCurrentTenant') ?
       req.sessionModel.get('rental-property-postcode') : '',
     rental_property_address: req.sessionModel.get('valuesEnriched').tenantType === 'Tenant' ?
-      req.sessionModel.get('tenantAddress').join('\n') : ''
+      req.sessionModel.get('tenantAddress').join(', ') : '',
+    tenant_address_line_1: req.sessionModel.get('tenant-address-line-1'),
+    tenant_address_line_2: req.sessionModel.get('tenant-address-line-2') ?? '',
+    tenant_town_or_city: req.sessionModel.get('tenant-town-or-city'),
+    tenant_county: req.sessionModel.get('tenant-county') ?? '',
+    tenant_postcode: req.sessionModel.get('tenant-postcode'),
+    rental_address_line_1: req.sessionModel.get('isCurrentTenant') ?
+      req.sessionModel.get('tenant-address-line-1') : '',
+    rental_address_line_2: req.sessionModel.get('isCurrentTenant') ?
+      req.sessionModel.get('tenant-address-line-2') : '',
+    rental_town_or_city: req.sessionModel.get('isCurrentTenant') ?
+      req.sessionModel.get('tenant-town-or-city') : '',
+    rental_county: req.sessionModel.get('isCurrentTenant') ?
+      req.sessionModel.get('tenant-county') : '',
+    rental_postcode: req.sessionModel.get('isCurrentTenant') ?
+      req.sessionModel.get('tenant-postcode') : '',
   };
   return {
     ...basePersonalisation
