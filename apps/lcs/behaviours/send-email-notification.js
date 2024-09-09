@@ -65,7 +65,7 @@ module.exports = class SendEmailConfirmation {
   async send(recipientType) {
     try {
       await notifyClient.sendEmail(
-        config.govukNotify.userConfirmationTemplateId,
+        config.govukNotify[`${recipientType}ConfirmationTemplateId`],
         recipientType === 'user' ?
           this.req.sessionModel.get('landlord-or-agent-email') :  config.govukNotify.caseworkerEmail,
         {
