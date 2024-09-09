@@ -64,10 +64,12 @@ module.exports = class SendEmailConfirmation {
 
   async send(recipientType) {
     try {
+      const targetTemplate = `${recipientType}ConfirmationTemplateId`;
+      const targetEmailAddress = recipientType === 'user' ?
+        this.req.sessionModel.get('landlord-or-agent-email') : config.govukNotify.caseworkerEmail
       await notifyClient.sendEmail(
-        config.govukNotify[`${recipientType}ConfirmationTemplateId`],
-        recipientType === 'user' ?
-          this.req.sessionModel.get('landlord-or-agent-email') :  config.govukNotify.caseworkerEmail,
+        config.govukNotify[targetTemplate],
+        targetEmailAddress,
         {
           personalisation: this.emailPersonalisations
         }
