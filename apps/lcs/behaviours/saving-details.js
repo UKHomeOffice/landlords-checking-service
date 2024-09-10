@@ -1,7 +1,4 @@
-const aggregateValues = values => {
-  const aggregatedValues = Object.values(values).filter(line => line);
-  return aggregatedValues;
-};
+const aggregateTruthyValues = values => Object.values(values).filter(line => line);
 
 module.exports = fieldKey => superclass => class extends superclass {
   successHandler(req, res, next) {
@@ -12,7 +9,7 @@ module.exports = fieldKey => superclass => class extends superclass {
     }
 
     if (currentRoute === '/tenant-address') {
-      const tenantAddress = aggregateValues(req.form.values);
+      const tenantAddress = aggregateTruthyValues(req.form.values);
       req.sessionModel.set('tenantAddress', tenantAddress);
     }
 
