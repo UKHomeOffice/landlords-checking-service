@@ -25,8 +25,7 @@ module.exports = class SendEmailConfirmation {
       country_of_nationality: req.sessionModel.get('tenant-nationality'),
       full_address: req.sessionModel.get('tenantAddress').join(', '),
       is_before_1988: req.sessionModel.get('steps').includes('/before-1988') &&
-        req.sessionModel.get('before-or-after-1988') ?
-        getLabel('before-or-after-1988', req.sessionModel.get('before-or-after-1988')) : '',
+        req.sessionModel.get('in-uk-before-1988') === 'yes' ? 'yes' : 'no',
       date_of_entry: req.sessionModel.get('date-tenant-moved-uk') ?
         moment(req.sessionModel.get('date-tenant-moved-uk')).format(config.PRETTY_DATE_FORMAT) : '',
       place_of_birth: req.sessionModel.get('extra-tenant-pob') ?? '',
@@ -63,6 +62,7 @@ module.exports = class SendEmailConfirmation {
   }
 
   async send(recipientType) {
+    console.log('PERSONALS: ', this.emailPersonalisations);
     try {
       const targetTemplate = `${recipientType}ConfirmationTemplateId`;
       const targetEmailAddress = recipientType === 'user' ?
