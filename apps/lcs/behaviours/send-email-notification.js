@@ -13,8 +13,8 @@ module.exports = class SendEmailConfirmation {
 
   getPersonalisation(req) {
     const basePersonalisation = {
-      is_tenant: req.sessionModel.get('isCurrentTenant') ?? '',
-      is_prospective_tenant: !req.sessionModel.get('isCurrentTenant') ?? '',
+      is_tenant: req.sessionModel.get('isCurrentTenant') ? 'yes' : 'no',
+      is_prospective_tenant: !req.sessionModel.get('isCurrentTenant') ? 'yes' : 'no',
       existing_occupier: getLabel('person-live-in', req.sessionModel.get('person-live-in')),
       is_existing_occupier: req.sessionModel.get('person-live-in'),
       person_moved_into_property: req.sessionModel.get('when-person-moved-in') ?
@@ -25,7 +25,7 @@ module.exports = class SendEmailConfirmation {
       country_of_nationality: req.sessionModel.get('tenant-nationality'),
       full_address: req.sessionModel.get('tenantAddress').join(', '),
       is_before_1988: req.sessionModel.get('steps').includes('/before-1988') ?
-        req.sessionModel.get('before-or-after-1988') : 'no',
+        req.sessionModel.get('in-uk-before-1988') : 'no',
       date_of_entry: req.sessionModel.get('date-tenant-moved-uk') ?
         moment(req.sessionModel.get('date-tenant-moved-uk')).format(config.PRETTY_DATE_FORMAT) : '',
       place_of_birth: req.sessionModel.get('extra-tenant-pob') ?? '',
