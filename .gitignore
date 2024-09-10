@@ -16,3 +16,7 @@ apps/**/translations/**/*
 !apps/**/translations/src/
 !apps/**/translations/src/**/*
 .devcontainer/*.env
+.cache
+.npm
+.yarn
+.yarnrc
