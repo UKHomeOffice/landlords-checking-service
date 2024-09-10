@@ -62,7 +62,6 @@ module.exports = class SendEmailConfirmation {
   }
 
   async send(recipientType) {
-    console.log('PERSONALS: ', this.emailPersonalisations);
     try {
       const targetTemplate = `${recipientType}ConfirmationTemplateId`;
       const targetEmailAddress = recipientType === 'user' ?
