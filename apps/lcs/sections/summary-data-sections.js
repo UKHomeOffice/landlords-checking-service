@@ -95,8 +95,7 @@ module.exports = {
         step: '/landlord-information',
         field: 'rental-property-postcode',
         parse: (value, req) => {
-          if (req.sessionModel.get('isCurrentTenant') ||
-            !req.sessionModel.get('steps').includes('/landlord-information')) {
+          if (req.sessionModel.get('isCurrentTenant')) {
             return null;
           }
           return value;
@@ -123,10 +122,6 @@ module.exports = {
           }
           return req.sessionModel.get('tenantAddress').join('\n');
         }
-      },
-      {
-        step: '/tenant-address',
-        field: '/tenant-address'
       }
     ]
   }
