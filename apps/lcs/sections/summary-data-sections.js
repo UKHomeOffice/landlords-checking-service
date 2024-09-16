@@ -93,7 +93,14 @@ module.exports = {
       },
       {
         step: '/landlord-information',
-        field: 'rental-property-postcode'
+        field: 'rental-property-postcode',
+        parse: (value, req) => {
+          if (req.sessionModel.get('isCurrentTenant') ||
+            !req.sessionModel.get('steps').includes('/landlord-information')) {
+            return null;
+          }
+          return value;
+        }
       },
       {
         step: '/landlord-information',

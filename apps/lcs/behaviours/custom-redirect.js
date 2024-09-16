@@ -3,7 +3,7 @@ module.exports = superclass => class extends superclass {
     const currentRoute = req.form.options.route;
     const action = req.params.action;
 
-    if (currentRoute === '/tenant-address' && action === 'edit') {
+    if (req.sessionModel.get('isCurrentTenant') && currentRoute === '/tenant-address' && action === 'edit') {
       this.emit('complete', req, res);
       return res.redirect('/rental-property');
     }
