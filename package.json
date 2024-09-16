@@ -26,7 +26,8 @@
   "homepage": "https://github.com/UKHomeOffice/landlords-checking-service#readme",
   "dependencies": {
     "hof": "^21.1.1",
-    "accessible-autocomplete": "^3.0.1"
+    "accessible-autocomplete": "^3.0.1",
+    "notifications-node-client": "^8.2.1"
   },
   "devDependencies": {
     "chai": "^4.3.5",
