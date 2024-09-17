@@ -1,0 +1,24 @@
+{{<partials-page}}
+  {{$page-content}}
+    <div class="summary-hrline"></div>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row summary-list-box" >
+      <dd class="govuk-summary-list__value">
+          <div>{{values.tenant-address-line-1}}</div>
+          <div>{{values.tenant-address-line-2}}</div>
+          <div>{{values.tenant-town-or-city}}</div>
+          <div>{{values.tenant-county}}</div>
+          <div>{{values.tenant-postcode}}</div>
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="{{baseUrl}}/tenant-address/edit" id="tenant-address-change">
+    Change <span class="govuk-visually-hidden">address</span>
+</a>
+        </dd>
+      </div>
+    </dl>
+    <div class="govuk-button-container">
+      {{#input-submit}}continue{{/input-submit}}
+    </div>
+  {{/page-content}}
+{{/partials-page}}

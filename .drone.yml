@@ -6,6 +6,7 @@ type: kubernetes
 environment:
   APP_NAME: lcs
   PROD_ENV: sas-lcs-prod
+  STG_ENV: sas-lcs-stg
   UAT_ENV: sas-lcs-uat
   BRANCH_ENV: sas-lcs-branch
   PRODUCTION_URL: www.landlords-request-a-check.homeoffice.gov.uk
@@ -24,7 +25,7 @@ trigger:
 
 linting: &linting
   pull: if-not-exists
-  image: node:18
+  image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
@@ -32,7 +33,7 @@ linting: &linting
 
 unit_tests: &unit_tests
   pull: if-not-exists
-  image: node:18
+  image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
@@ -63,7 +64,7 @@ steps:
 
   - name: setup_deploy
     pull: if-not-exists
-    image: node:18
+    image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
     environment:
       NOTIFY_KEY: USE_MOCK
     commands:
@@ -73,6 +74,7 @@ steps:
       branch:
         include:
         - master
+        - feature/*
       event: push
 
   - name: linting_deploy
@@ -81,6 +83,7 @@ steps:
       branch:
         include:
           - master
+          - feature/*
       event: push
 
   - name: unit_tests_deploy
@@ -97,6 +100,7 @@ steps:
       branch:
         include:
           - master
+          - feature/*
       event: push
 
   - name: build_image
@@ -111,7 +115,10 @@ steps:
       - name: dockersock
         path: /var/run
     when:
-      branch: master
+      branch: 
+        include:
+        - master
+        - feature/*
       event: [push, pull_request]
 
   - name: image_to_ecr
@@ -126,10 +133,13 @@ steps:
       repo: sas/lcs
       registry: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
       tags:
-        - latest_${DRONE_BRANCH}
+        - latest_${DRONE_BRANCH//\//-}
         - ${DRONE_COMMIT_SHA}
     when:
-      branch: master
+      branch: 
+        include:
+        - master
+        - feature/*
       event: [push, pull_request]
 
   # Trivy Security Scannner
@@ -146,7 +156,7 @@ steps:
       TOLERATE: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
+      ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     when:
       event:
       - pull_request
@@ -173,7 +183,7 @@ steps:
 
   - name: setup_branch
     pull: if-not-exists
-    image: node:18
+    image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
     environment:
       NOTIFY_KEY: USE_MOCK
     commands:
@@ -206,22 +216,6 @@ steps:
 
   - name: sonar_scanner_branch
     <<: *sonar_scanner
-    when:
-      branch:
-        include:
-          - master
-          - feature/*
-      event: pull_request
-
-  - name: snyk_scan
-    pull: if-not-exists
-    image: node:18
-    environment:
-      NOTIFY_STUB: true
-      SNYK_TOKEN:
-        from_secret: snyk_token
-    commands:
-      - yarn run test:snyk
     when:
       branch:
         include:
@@ -276,6 +270,21 @@ steps:
         path: /root/.dockersock
     commands:
       - bin/deploy.sh tear_down
+    when:
+      branch: master
+      event: push
+  
+  # Deploy to Staging environment
+  - name: deploy_to_stg
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_prod
+      KUBE_TOKEN:
+        from_secret: kube_token_prod
+    commands:
+      - bin/deploy.sh $${STG_ENV}
     when:
       branch: master
       event: push
@@ -338,7 +347,7 @@ steps:
       cron: tear_down_pr_envs
       event: cron
 
-  # CRON job steps that runs security scans using Snyk & Trivy
+  # CRON job steps that runs security scans using Trivy
   - name: cron_clone_repos
     image: alpine/git
     environment:
@@ -363,21 +372,6 @@ steps:
       cron: security_scans
       event: cron
 
-  - name: cron_snyk_scan
-    pull: if-not-exists
-    image: node:18
-    environment:
-      NOTIFY_STUB: true
-      SNYK_TOKEN:
-        from_secret: snyk_token
-    commands:
-      - yarn install --frozen-lockfile
-      - yarn run postinstall
-      - yarn run test:snyk
-    when:
-      cron: security_scans
-      event: cron
-
   - name: cron_trivy_scan
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
@@ -386,7 +380,7 @@ steps:
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/Landlords_Checking_Service/trivy-cve-exceptions.txt
+      ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     when:
       cron: security_scans
       event: cron
