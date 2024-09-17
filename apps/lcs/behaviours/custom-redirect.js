@@ -1,9 +1,12 @@
+const config = require('../../../config.js');
+
 module.exports = superclass => class extends superclass {
   successHandler(req, res, next) {
     const currentRoute = req.form.options.route;
     const action = req.params.action;
 
-    if (req.sessionModel.get('isCurrentTenant') && currentRoute === '/tenant-address' && action === 'edit') {
+    if (req.sessionModel.get('isCurrentTenant') && req.sessionModel.get('tenant-dob') > config.startOf1988 &&
+      currentRoute === '/tenant-address' && action === 'edit') {
       this.emit('complete', req, res);
       return res.redirect('/rental-property');
     }

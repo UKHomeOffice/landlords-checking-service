@@ -10,7 +10,8 @@
     "before": "This date must not be in the future"
   },
   "tenant-full-name": {
-    "required": "Enter the {{valuesEnriched.tenantType}}'s full name"
+    "required": "Enter the {{valuesEnriched.tenantType}}'s full name",
+    "notUrl": "Your answer must not contain URLs or links"
   },
   "tenant-dob": {
     "required": "Enter the {{valuesEnriched.tenantType}}'s date of birth",
@@ -24,7 +25,8 @@
     "excludeUK": "You do not need to use this service if the {{valuesEnriched.tenantType}} is a British citizen"
   },
   "ho-ref-number": {
-    "required": "Enter a Home Office reference number"
+    "required": "Enter a Home Office reference number",
+     "notUrl": "Your answer must not contain URLs or links"
   },
   "privacy-check": {
     "required": "Confirm you have read the Data Protection statement"
@@ -33,14 +35,17 @@
     "required": "Tell us whether the {{valuesEnriched.tenantType}} came to the UK before 1988"
   },
   "extra-tenant-pob": {
-    "required": "Enter a place of birth"
+    "required": "Enter a place of birth",
+    "notUrl": "Your answer must not contain URLs or links"
   },
   "extra-tenant-ni-num": {
     "required": "Enter a National Insurance number",
     "niNumber": "Enter a National Insurance number in the correct format"
   },
   "extra-tenant-email": {
-    "email": "Enter a real email address"
+    "email": "Enter a real email address",
+    "minlength": "Email address must be between 6 and 254 characters",
+    "maxlength": "Email address must be between 6 and 254 characters"
   },
   "date-tenant-moved-uk": {
     "required": "Enter a date the {{valuesEnriched.tenantType}} came to the UK",
@@ -54,10 +59,22 @@
     "internationalPhoneNumber": "Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
   "tenant-address-line-1": {
-    "required": "Enter address line 1, typically the building and street"
+    "required": "Enter address line 1, typically the building and street",
+    "notUrl": "Your answer must not contain URLs or links",
+    "maxlength": "Address line 1 must be between 1 and 250 characters"
+  },
+  "tenant-address-line-2": {
+    "notUrl": "Your answer must not contain URLs or links",
+    "maxlength": "Address line 2 must be between 1 and 250 characters"
   },
   "tenant-town-or-city": {
-    "required": "Enter a town or city" 
+    "required": "Enter a town or city",
+    "notUrl": "Your answer must not contain URLs or links",
+    "maxlength": "Town or city must be between 1 and 250 characters"
+  },
+  "tenant-county": {
+    "notUrl": "Your answer must not contain URLs or links",
+    "maxlength": "County must be between 1 and 250 characters"
   },
   "tenant-postcode": {
     "required": "Enter a postcode",
@@ -65,14 +82,18 @@
   },
   "landlord-or-agent-name": {
     "required": "Enter a full name",
-    "maxLength": "Name must be 250 characters or less"
+    "maxLength": "Name must be 250 characters or less",
+    "notUrl": "Your answer must not contain URLs or links"
   },
   "landlord-or-agent-company": {
-    "maxLength": "Company name must be 250 characters or less"
+    "maxLength": "Company name must be 250 characters or less",
+    "notUrl": "Your answer must not contain URLs or links"
   },
   "landlord-or-agent-email": {
     "required": "Enter an email address",
-    "email": "Enter a real email address"
+    "email": "Enter a real email address",
+    "minlength": "Email address must be between 6 and 254 characters",
+    "maxlength": "Email address must be between 6 and 254 characters"
   },
   "landlord-or-agent-tel": {
     "internationalPhoneNumber": "Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
