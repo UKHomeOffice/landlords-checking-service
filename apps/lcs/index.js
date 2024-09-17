@@ -33,6 +33,7 @@ const steps =  {
   },
   '/property-occupied': {
     behaviours: [
+      customRedirect,
       saveDetails('person-live-in'),
       valuesEnricher('person-live-in', 'tenantType'),
       valuesEnricher('when-person-moved-in', 'tenantMovedIn')
@@ -46,6 +47,7 @@ const steps =  {
       customValidation,
       valuesEnricher('tenant-dob', 'tenantDoB')
     ],
+    continueOnEdit: true,
     fields: [
       'tenant-full-name',
       'tenant-dob',
@@ -56,6 +58,7 @@ const steps =  {
   },
   '/tenant-address': {
     behaviours: [customRedirect, saveDetails()],
+    continueOnEdit: true,
     fields: [
       'tenant-address-line-1',
       'tenant-address-line-2',
