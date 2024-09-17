@@ -33,11 +33,11 @@ const steps =  {
   },
   '/property-occupied': {
     behaviours: [
+      customRedirect,
       saveDetails('person-live-in'),
       valuesEnricher('person-live-in', 'tenantType'),
       valuesEnricher('when-person-moved-in', 'tenantMovedIn')
     ],
-    continueOnEdit: true,
     fields: ['person-live-in', 'when-person-moved-in'],
     next: '/tenant-details'
   },

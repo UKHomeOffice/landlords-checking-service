@@ -7,6 +7,15 @@ module.exports = superclass => class extends superclass {
       this.emit('complete', req, res);
       return res.redirect('/rental-property');
     }
+
+    if (currentRoute === '/property-occupied' && action === 'edit') {
+      const personLiveIn = req.form.values['person-live-in'];
+      const rentalPropertyPostcode = req.sessionModel.get('rental-property-postcode');
+      if (personLiveIn === 'no' && !rentalPropertyPostcode) {
+        this.emit('complete', req, res);
+        return res.redirect('/landlord-information');
+      }
+    }
     return super.successHandler(req, res, next);
   }
 };
