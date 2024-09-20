@@ -10,6 +10,6 @@
   - biometric residence permit number 
   - passport number (current or expired) 
   - Home Office application reference number 
-  - any tracking reference number 
+  - Any tracking reference number 
     </div>
   </details>

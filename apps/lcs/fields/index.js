@@ -80,7 +80,7 @@ module.exports = {
   },
   'ho-ref-number': {
     mixin: 'input-text',
-    validate: ['required'],
+    validate: ['required', 'notUrl'],
     labelClassName: '',
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
@@ -109,7 +109,7 @@ module.exports = {
   }),
   'extra-tenant-pob': {
     mixin: 'input-text',
-    validate: 'required',
+    validate: ['required', 'notUrl'],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'extra-tenant-ni-num': {
@@ -119,7 +119,7 @@ module.exports = {
   },
   'extra-tenant-email': {
     mixin: 'input-text',
-    validate: 'email',
+    validate: [{ type: 'minlength', arguments: 6 }, { type: 'maxlength', arguments: 254 }, 'email'],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'extra-tenant-tel': {
@@ -129,16 +129,17 @@ module.exports = {
   },
   'tenant-address-line-1': {
     mixins: 'input-text',
-    validate: ['required', { type: 'maxlength', arguments: 250 }],
+    validate: ['required', 'notUrl', { type: 'maxlength', arguments: 250 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-address-line-2': {
-    mixins: ['input-text', { type: 'maxlength', arguments: 250 }],
+    mixins: ['input-text'],
+    validate: ['notUrl', { type: 'maxlength', arguments: 250 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-town-or-city': {
     mixins: 'input-text',
-    validate: 'required',
+    validate: ['required', 'notUrl', { type: 'maxlength', arguments: 250 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'tenant-county': {
@@ -150,7 +151,7 @@ module.exports = {
     mixins: 'input-text',
     formatter: ['ukPostcode'],
     validate: ['required', 'postcode'],
-    className: ['govuk-input', 'govuk-!-width-two-thirds']
+    className: ['govuk-input', 'govuk-input--width-10']
   },
   'landlord-or-agent-name': {
     mixins: 'input-text',
@@ -164,7 +165,7 @@ module.exports = {
   },
   'landlord-or-agent-email': {
     mixins: 'input-text',
-    validate: ['required', 'email'],
+    validate: ['required', { type: 'minlength', arguments: 6 }, { type: 'maxlength', arguments: 254 }, 'email'],
     className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'landlord-or-agent-tel': {

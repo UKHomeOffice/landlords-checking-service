@@ -67,6 +67,9 @@
       },
       "rental-property-postcode": {
         "label": "Rental property postcode"
+      },
+      "in-uk-before-1988": {
+        "label": "Been in the UK since before 1988?"
       }
     }
   },
