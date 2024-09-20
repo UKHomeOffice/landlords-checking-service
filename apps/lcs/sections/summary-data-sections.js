@@ -2,6 +2,7 @@
 'use strict';
 
 const moment = require('moment');
+const { shouldRedirectToBefore1988 } = require('../../../utils');
 const PRETTY_DATE_FORMAT = 'DD MMMM YYYY';
 
 module.exports = {
@@ -57,6 +58,16 @@ module.exports = {
       {
         step: '/tenant-address',
         field: 'tenant-postcode'
+      },
+      {
+        step: '/before-1988',
+        field: 'in-uk-before-1988',
+        parse: (value, req) => {
+          if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
+            return null;
+          }
+          return value;
+        }
       }
     ]
   },
@@ -64,24 +75,53 @@ module.exports = {
     steps: [
       {
         step: '/extra-tenant-details',
-        field: 'extra-tenant-tel'
+        field: 'extra-tenant-tel',
+        parse: (value, req) => {
+          if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
+            return null;
+          }
+          return value;
+        }
       },
       {
         step: '/extra-tenant-details',
-        field: 'extra-tenant-pob'
+        field: 'extra-tenant-pob',
+        parse: (value, req) => {
+          if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
+            return null;
+          }
+          return value;
+        }
       },
       {
         step: '/extra-tenant-details',
         field: 'date-tenant-moved-uk',
-        parse: d => d && moment(d).format(PRETTY_DATE_FORMAT)
+        parse: (value, req) => {
+          if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
+            return null;
+          }
+          return value && moment(value).format(PRETTY_DATE_FORMAT);
+        }
       },
       {
         step: '/extra-tenant-details',
-        field: 'extra-tenant-email'
+        field: 'extra-tenant-email',
+        parse: (value, req) => {
+          if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
+            return null;
+          }
+          return value;
+        }
       },
       {
         step: '/extra-tenant-details',
-        field: 'extra-tenant-ni-num'
+        field: 'extra-tenant-ni-num',
+        parse: (value, req) => {
+          if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
+            return null;
+          }
+          return value;
+        }
       }
     ]
   },

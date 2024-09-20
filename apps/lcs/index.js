@@ -27,10 +27,10 @@ const steps =  {
   '/tenant-details': {
     behaviours: [
       hof.components.homeOfficeCountries,
+      customRedirect,
       customValidation,
       valuesEnricher('tenant-dob', 'tenantDoB')
     ],
-    continueOnEdit: true,
     fields: [
       'tenant-full-name',
       'tenant-dob',
@@ -41,7 +41,6 @@ const steps =  {
   },
   '/tenant-address': {
     behaviours: [customRedirect, saveDetails()],
-    continueOnEdit: true,
     fields: [
       'tenant-address-line-1',
       'tenant-address-line-2',

@@ -8,10 +8,11 @@ const { getLabel } = require('../../../utils');
 module.exports = class SendEmailConfirmation {
   constructor(req) {
     this.req = req;
-    this.emailPersonalisations = this.getPersonalisation(req);
+    this.businessEmailPersonalisation = this.getPersonalisation('business', req);
+    this.userEmailPersonalisation = this.getPersonalisation('user', req);
   }
 
-  getPersonalisation(req) {
+  getPersonalisation(recipientType, req) {
     const basePersonalisation = {
       is_tenant: req.sessionModel.get('isCurrentTenant') ? 'yes' : 'no',
       is_prospective_tenant: !req.sessionModel.get('isCurrentTenant') ? 'yes' : 'no',
@@ -33,9 +34,7 @@ module.exports = class SendEmailConfirmation {
       tenant_email: req.sessionModel.get('extra-tenant-email') ?? '',
       tenant_tel: req.sessionModel.get('extra-tenant-tel') ?? '',
       landlord_name: req.sessionModel.get('landlord-or-agent-name'),
-      landlord_company: req.sessionModel.get('landlord-or-agent-company'),
       landlord_email: req.sessionModel.get('landlord-or-agent-email'),
-      landlord_tel: req.sessionModel.get('landlord-or-agent-tel'),
       prospective_rental_postcode: !req.sessionModel.get('isCurrentTenant') ?
         req.sessionModel.get('rental-property-postcode') : '',
       rental_property_address: req.sessionModel.get('isCurrentTenant') ?
@@ -56,9 +55,20 @@ module.exports = class SendEmailConfirmation {
       rental_postcode: req.sessionModel.get('isCurrentTenant') ?
         req.sessionModel.get('tenant-postcode') : ''
     };
-    return {
-      ...basePersonalisation
-    };
+
+    const recipientPersonalisation = {};
+    if(recipientType === 'user') {
+      recipientPersonalisation.has_landlord_company = req.sessionModel.get('landlord-or-agent-company') ? 'yes' : 'no';
+      recipientPersonalisation.landlord_company = req.sessionModel.get('landlord-or-agent-company') ?? '';
+      recipientPersonalisation.has_landlord_tel = req.sessionModel.get('landlord-or-agent-tel') ? 'yes' : 'no';
+      recipientPersonalisation.landlord_tel =  req.sessionModel.get('landlord-or-agent-tel') ?? '';
+    }
+    if(recipientType === 'business')  {
+      recipientPersonalisation.landlord_company = req.sessionModel.get('landlord-or-agent-company') || 'Not Provided';
+      recipientPersonalisation.landlord_tel =  req.sessionModel.get('landlord-or-agent-tel') || 'Not Provided';
+    }
+
+    return Object.assign(basePersonalisation, recipientPersonalisation);
   }
 
   async send(recipientType) {
@@ -71,7 +81,7 @@ module.exports = class SendEmailConfirmation {
         config.govukNotify[targetTemplate],
         targetEmailAddress,
         {
-          personalisation: this.emailPersonalisations,
+          personalisation: recipientType === 'user' ? this.userEmailPersonalisation : this.businessEmailPersonalisation,
           emailReplyToId: emailReplyToId
         }
       );

@@ -5,14 +5,17 @@ module.exports = superclass => class extends superclass {
     const currentRoute = req.form.options.route;
     const action = req.params.action;
 
-    if (req.sessionModel.get('isCurrentTenant') && currentRoute === '/tenant-address' && action === 'edit') {
-      if(shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob')) &&
-       !req.sessionModel.get('steps').includes('/before-1988')) {
+    if (currentRoute === '/tenant-address' && action === 'edit' && req.sessionModel.get('isCurrentTenant')) {
+      this.emit('complete', req, res);
+      return res.redirect('/rental-property');
+    }
+
+    if (currentRoute === '/tenant-details' && action === 'edit') {
+      if(shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))  &&
+      !req.sessionModel.get('steps').includes('/before-1988')) {
         this.emit('complete', req, res);
         return res.redirect('/before-1988');
       }
-      this.emit('complete', req, res);
-      return res.redirect('/rental-property');
     }
 
     if (currentRoute === '/property-occupied' && action === 'edit') {
