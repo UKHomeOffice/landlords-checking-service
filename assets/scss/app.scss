@@ -37,6 +37,15 @@ p a[href] {
     font-weight: normal;
 }
 
+.spinner-loader {
+  border: 5px solid #DEE0E2;
+  border-radius: 50%;
+  border-top-color: #005EA5;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
 // Accessible autocomplete
 .autocomplete__wrapper {
     position: relative;
