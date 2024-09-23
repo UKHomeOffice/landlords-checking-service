@@ -28,7 +28,9 @@ module.exports = class SendEmailConfirmation {
       full_address: req.sessionModel.get('tenantAddress').join(', '),
       is_tenant_dob_before_1988: isTenantDobBefore1988 ? 'yes' : 'no',
       been_in_uk_before_1988: isTenantDobBefore1988 && req.sessionModel.get('in-uk-before-1988') ?
-        req.sessionModel.get('in-uk-before-1988') : '',
+        getLabel('in-uk-before-1988', req.sessionModel.get('in-uk-before-1988')) : '',
+      is_tenant_been_in_UK_before1988: isTenantDobBefore1988 &&
+         req.sessionModel.get('in-uk-before-1988') === 'yes' ? 'yes' : 'no',
       date_of_entry: isTenantDobBefore1988 && req.sessionModel.get('date-tenant-moved-uk') ?
         moment(req.sessionModel.get('date-tenant-moved-uk')).format(config.PRETTY_DATE_FORMAT) : '',
       place_of_birth: isTenantDobBefore1988 &&  req.sessionModel.get('extra-tenant-pob') ?
@@ -74,7 +76,8 @@ module.exports = class SendEmailConfirmation {
     if(recipientType === 'business')  {
       recipientPersonalisation.landlord_company = req.sessionModel.get('landlord-or-agent-company') || 'Not Provided';
       recipientPersonalisation.landlord_tel =  req.sessionModel.get('landlord-or-agent-tel') || 'Not Provided';
-      recipientPersonalisation.tenant_email = isTenantDobBefore1988 ?
+      recipientPersonalisation.tenant_email = isTenantDobBefore1988 &&
+        req.sessionModel.get('in-uk-before-1988') === 'yes' ?
         req.sessionModel.get('extra-tenant-email') || 'Not Provided' : '';
     }
 
