@@ -120,6 +120,10 @@ const steps =  {
   }
 };
 
+const pages = {
+  '/accessibility': 'static/accessibility'
+};
+
 Object.keys(steps).map(key => {
   steps[key].behaviours = steps[key].behaviours || [];
   steps[key].behaviours.unshift(localsEnricher);
@@ -129,5 +133,6 @@ module.exports = {
   name: 'lcs',
   baseUrl: '/',
   confirmStep: '/confirm',
-  steps: steps
+  steps: steps,
+  pages: pages
 };

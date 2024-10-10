@@ -1,6 +1,6 @@
 # Landlord's Checking Service (LCS)
 
-Landlord's Checking Service (LCS) - In this form Users (Landlords) will use this service to request the Home Office to check a tenants or prospective tenant has rights to rent.
+Landlord's Checking Service (LCS) - In this form Users (Landlords) will use this service to request the Home Office to check a tenant or prospective tenant has the right to rent.
 
 ## Description
 
@@ -12,7 +12,7 @@ Landlord's Checking Service (LCS) - In this form Users (Landlords) will use this
   - they have an outstanding case or appeal with the Home Office
   - the Home Office told them they have ‘permission to rent’
 
-- The form facilitates the user to fill all the required details of tenant's and Landlord details.
+- The form facilitates the user to fill all the required details of tenant and landlord.
 - The user is able to review all the answers provided to confirm their details prior to submission.
 - Once the application is submitted, automated notifications are sent to the business and the user.
 

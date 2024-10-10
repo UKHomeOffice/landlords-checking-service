@@ -24,7 +24,9 @@
   },
   "rental-property": {
     "header": "Rental property address"
-    
+  },
+  "accessibility": {
+    "header": "Accessibility statement for Request a Home Office right to rent check"
   },
   "confirm": {
     "header": "Summary",
