@@ -6,9 +6,7 @@ module.exports = {
   PRETTY_DATE_FORMAT: 'DD MMMM YYYY',
   dateTimeFormat: 'DD MMM YYYY HH:mm:ss',
   env: env,
-  survey: {
-    feedbackUrl: 'https://eforms.homeoffice.gov.uk/outreach/Feedback.ofml?FormName=lcs'
-  },
+  feedbackUrl: process.env.FEEDBACK_URL,
   redis: {
     port: process.env.REDIS_PORT || '6379',
     host: process.env.REDIS_HOST || '127.0.0.1'
