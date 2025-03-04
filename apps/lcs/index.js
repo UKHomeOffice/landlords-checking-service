@@ -117,7 +117,9 @@ const steps =  {
   '/check-requested': {
     behaviours: [clearSession],
     next: ''
-  }
+  },
+  '/session-timeout': {},
+  '/exit': {}
 };
 
 const pages = {
