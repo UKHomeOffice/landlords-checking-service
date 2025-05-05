@@ -90,6 +90,7 @@ By following these steps, you should be able to run your application using a dev
 
 9. Run the necessary commands to install dependencies `yarn` and `yarn start:dev` to start your application.
 
+
 ### Testing
 
 #### Linting Tests
