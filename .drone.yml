@@ -160,7 +160,6 @@ steps:
       secret_key:
         from_secret: aws_secret_access_key
       region: eu-west-2
-      #repo: ${IMAGE_REPO}
       repo: sas/lcs
       registry: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
       tags:
@@ -389,10 +388,10 @@ steps:
     pull: always
     environment:
       IMAGE_NAME: quay.io/ukhomeofficedigital/hof-nodejs:20.20.0-alpine3.23@sha256:55fe012b09506d6b70ecef4c425f149bd7f738839fee3dd05085bc45deceb4c3
-        SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
-        FAIL_ON_DETECTION: true
-        IGNORE_UNFIXED: false
-        ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
+      SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
+      FAIL_ON_DETECTION: true
+      IGNORE_UNFIXED: false
+      ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     when:
       cron: security_scans
       event: cron
