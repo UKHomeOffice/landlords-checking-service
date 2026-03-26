@@ -292,7 +292,7 @@ steps:
       event: push
     depends_on:
       - clone_repos
-      - image_to_quay
+      - image_to_ecr
 
   # Checks a build being promoted has passed, is on master which effectively means a healthy build on Staging
   - name: sanity_check_build_prod
