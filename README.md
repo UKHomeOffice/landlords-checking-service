@@ -32,7 +32,8 @@ Landlord's Checking Service (LCS) - In this form Users (Landlords) will use this
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) - v.20.17.0
+- [Node.js](https://nodejs.org/en/)
+   - for supported versions see `engines.node` in [package.json](package.json)
 - [Redis server](http://redis.io/download) running on default port 6379
 
 ### Setup
