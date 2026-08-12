@@ -33,7 +33,7 @@
     "chai": "^6.2.2",
     "eslint": "^8.57.0",
     "eslint-config-hof": "^1.3.4",
-    "mocha": "^11.7.6",
+    "mocha": "^11.8.0",
     "nyc": "^18.0.0"
   },
   "mocha": {
