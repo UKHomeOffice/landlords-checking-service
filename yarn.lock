@@ -3,9 +3,9 @@
 
 
 "@aws-sdk/client-sesv2@^3.907.0":
-  version "3.1108.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sesv2/-/client-sesv2-3.1108.0.tgz#448c6a6dc99e0a305d20776f9b76b42d51535016"
-  integrity sha512-q9Jcu2AWLwFiUi/ec0dFnOad9XJcA0I/r9THi8rvc0JwRHiI1ZI6uuaV9ls790DT6h7cykYglkjw8pHwP1pF+Q==
+  version "3.1110.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-sesv2/-/client-sesv2-3.1110.0.tgz#029fe65c2d8180939900f413385143e9b811b2f7"
+  integrity sha512-HcxyzL+rBpaNpkYfr/Dv8MxUhbuT3J8q4htbaBDxdKlW6rbUrW66bhHGOEX9RpA0Mp93F5w6L+/uysnlFzM4Ew==
   dependencies:
     "@aws-sdk/core" "^3.977.7"
     "@aws-sdk/credential-provider-node" "^3.972.79"
@@ -914,10 +914,10 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.3.tgz#282046f03e886e352b2d5f5da5eb755e01457f3f"
   integrity sha512-DE427ROAphMQzU4ENbliGYrBSYPXF+TtLg9S8vzeA+OF4ZKzoDdzfL8sxuMUGS/lgRhM6j1URSk9ghf7Xo1tyA==
 
-"@smithy/core@^3.31.1", "@smithy/core@^3.32.0":
-  version "3.32.0"
-  resolved "https://registry.yarnpkg.com/@smithy/core/-/core-3.32.0.tgz#5a2dddb8fa7fdbc92faac1a9255a392f27b23afb"
-  integrity sha512-NAiCSC78fzbNIEWoheoF74Ob5ZorLijCHpMY26Fqvqg/+9LuyIqMfHDg2p8Yk1rqOyowtiL3y7WX0AW+teL6zw==
+"@smithy/core@^3.31.1", "@smithy/core@^3.32.0", "@smithy/core@^3.33.0":
+  version "3.33.0"
+  resolved "https://registry.yarnpkg.com/@smithy/core/-/core-3.33.0.tgz#b2010aa95a5f82d5f8b9734040eb7bca634ee6ce"
+  integrity sha512-uKbkxgqLyepQDZoq8aRSdUqD1ID//rOqG96ixBhp++O7vBtmwYM6fwldGhr9HJP0iYrdc7GP/AlgzPWEZIrNRg==
   dependencies:
     "@smithy/types" "^4.17.0"
     tslib "^2.6.2"
@@ -941,11 +941,11 @@
     tslib "^2.6.2"
 
 "@smithy/node-http-handler@^4.9.13":
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/@smithy/node-http-handler/-/node-http-handler-4.10.0.tgz#acd39f86422c50f7094cc03901a08a30fa37d974"
-  integrity sha512-nrh7VxqzPQS/ip1hS293aI/OAWDWARQvjUxCfuKhyrfHa2gTdk28066RNeWLI1uuoHXaKAkOF8IcSAHuOp0+SA==
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/@smithy/node-http-handler/-/node-http-handler-4.11.0.tgz#2b6d74e54dfa30dd9e3fcd498e3f45f95caa38e4"
+  integrity sha512-ssHIZsadPUA3lGdnoByxfnjtb9xPYQLvdfJRLKIwxOoa6tO1suG4sLFSsgd7D/CsvYd8QbBIuKTImuJha5l6aQ==
   dependencies:
-    "@smithy/core" "^3.32.0"
+    "@smithy/core" "^3.33.0"
     "@smithy/types" "^4.17.0"
     tslib "^2.6.2"
 
@@ -1127,9 +1127,9 @@ ansi-regex@^5.0.1:
   integrity sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==
 
 ansi-regex@^6.2.2:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-6.2.2.tgz#60216eea464d864597ce2832000738a0589650c1"
-  integrity sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-6.3.0.tgz#247c8e7b70a1a43b10ce14c0226fcbf58e8815d5"
+  integrity sha512-WpDfL7NO6j7tH88IDBNVdUJxDh9nmCteAVW9dsep846XdwF4naCBK+/tGLX3KJgcpgMRXCFlTM2hKGoK9FsdrQ==
 
 ansi-styles@^3.2.1:
   version "3.2.1"
@@ -1308,9 +1308,9 @@ balanced-match@^4.0.2:
   integrity sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==
 
 baseline-browser-mapping@^2.11.12:
-  version "2.11.13"
-  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.11.13.tgz#660073103c1bee93e54df55f117b7528adf6af19"
-  integrity sha512-k9HNuUVMlqVjQ9UHzfPjIqiDbWw7WqT1AoT7GL8VwvF3r0ZfArtgiSPAlmupyNquNgOJHTuH4CKYf8ttMTWBTQ==
+  version "2.11.14"
+  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.11.14.tgz#d51bb92285608b0e6356841a2eea76842a771d52"
+  integrity sha512-JyJ954WzuIR8/FFzX0o5krdSTrBAkcCSRfWSleRsIHSWV+cZe2FI1PKggVkFke1hBldRs+LRxUczzE9iPmgZww==
 
 basic-auth@~2.0.1:
   version "2.0.1"
@@ -1937,9 +1937,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.5.402:
-  version "1.5.405"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.405.tgz#23f14200334395a0801b79fc371a86daf02fd35e"
-  integrity sha512-bNglH7lPH5l+yHOes7Zr4VqxhOy4BQ9ZBUX4VdoFgxMpzJk7W1ZoO3Vgd9Pxa9PyjQ76sfm2aKH/nzEcCNRlew==
+  version "1.5.406"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.406.tgz#c1d2ddac21d01e92f0ddd2951d37642501d4a7f1"
+  integrity sha512-hWH5ORBi3d0IipnMh7BN5GDTaAmrSSSWmznwt2zltdiRNEWoEQyTwF0FFSBxzHO7hLSRT6loQu3IQGV0wg/Tvg==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -3630,9 +3630,9 @@ levn@^0.4.1:
     type-check "~0.4.0"
 
 libphonenumber-js@^1.12.23:
-  version "1.13.10"
-  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.13.10.tgz#bb53bb92e8375b0af6e42a679a86ff3f4585a74b"
-  integrity sha512-xJxrdqvbl2rtn2MaUJrUejz8J7/uZNC0V77oks2LxYrO/+ZtVpRmz+fEQMuu6VusnEB1fmpByiLS1WXecOnAnw==
+  version "1.13.11"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.13.11.tgz#72d066a69bc6149b36288c54115a926a8d2d3ce1"
+  integrity sha512-ETER2kMaIFTI/Nh1a8Gk03dUF/SL0VZqtI+CcVHZxp5WIHYwNS7S+uiYZDYCvLy3lOR4/DAD5jf0h5WkePPpqg==
 
 linkify-it@^5.0.2:
   version "5.0.2"
