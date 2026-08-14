@@ -4,7 +4,7 @@
   "description": "Request a right to rent check",
   "main": "index.js",
   "engines": {
-    "node": ">=20.19.0 <21.0.0"
+    "node": ">=24.19.0 <25.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -25,16 +25,16 @@
   },
   "homepage": "https://github.com/UKHomeOffice/landlords-checking-service#readme",
   "dependencies": {
-    "hof": "~22.10.4",
+    "hof": "~24.5.0",
     "accessible-autocomplete": "^3.0.1",
-    "notifications-node-client": "^8.2.1"
+    "notifications-node-client": "^8.4.0"
   },
   "devDependencies": {
-    "chai": "^4.3.5",
+    "chai": "^6.2.2",
     "eslint": "^8.57.0",
     "eslint-config-hof": "^1.3.4",
-    "mocha": "^10.4.0",
-    "nyc": "^17.1.0"
+    "mocha": "^11.8.0",
+    "nyc": "^18.0.0"
   },
   "mocha": {
     "reporter": "spec",
