@@ -2,7 +2,6 @@ FROM quay.io/ukhomeofficedigital/hof-nodejs:24.19.0-alpine3.24@sha256:a70b2f29d5
 
 USER root
 
-
 # Switch to UK Alpine mirrors, update package index and upgrade all installed packages
 RUN echo "http://uk.alpinelinux.org/alpine/v3.24/main" > /etc/apk/repositories ; \
     echo "http://uk.alpinelinux.org/alpine/v3.24/community" >> /etc/apk/repositories ; \
