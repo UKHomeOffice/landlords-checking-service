@@ -246,6 +246,7 @@ steps:
       event: [push, pull_request]
     depends_on:
       - build_image
+      - clone_repos
   
   # Deploy to pull request Branch environment
   - name: deploy_to_branch
