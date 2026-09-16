@@ -20,6 +20,6 @@ apps/**/translations/**/*
 .npm
 .yarn
 .yarnrc
-.features-gen/
-playwright-report/
-test-results/
+.features-gen
+playwright-report
+test-results
