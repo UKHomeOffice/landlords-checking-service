@@ -4,7 +4,7 @@
   "description": "Request a right to rent check",
   "main": "index.js",
   "engines": {
-    "node": ">=24.19.0 <25.0.0"
+    "node": ">=24.21.0 <25.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -41,5 +41,12 @@
     "require": "test/setup.js",
     "recursive": "true",
     "timeout": "6000"
+  },
+  "resolutions": {
+    "diff": "^8.0.3",
+    "js-yaml": "^4.3.2",
+    "morgan": "^1.12.0",
+    "qs": "^6.16.0",
+    "serialize-javascript": "^7.0.5"
   }
 }
