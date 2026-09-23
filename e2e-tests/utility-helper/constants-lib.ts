@@ -16,7 +16,7 @@ export const ConstantsLib = {
   REF_NUMBER: 'ZW9005196',
   PLACE_OF_BIRTH: 'London',
   NATIONAL_INSURANCE_NO: 'OK013581D',
-  TENANTS_EMAIL: 'Tenants.TestEmail@digital.homeoffice.gov.uk',
+  TENANTS_EMAIL: 'Tenants.TestEmail@test.co.uk',
   TELEPHONE: '01616699548',
   LAND_LORD_AGENT_NAME: 'HOF LandLord Agent',
   BUSINESS_OR_COMPANY_NAME: 'HOF LTD',
