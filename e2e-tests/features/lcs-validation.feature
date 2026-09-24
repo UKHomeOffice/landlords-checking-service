@@ -132,7 +132,7 @@ Feature: LCS - Landlords Checking Service
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "Date must be before 1988¬Enter a National Insurance number in the correct format¬Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192" error summary
-    #    Date tenant moved date is before their date of birth(01/01/1960 ), NI number A, B, C or D as the 9th character and telephone no is more than 16 char
+    #    Date tenant moved date is before their date is before(01/01/1960 ), NI number A, B, C or D as the 9th character and telephone no is more than 16 char
     When I fill in the fields below with extra tenant's details:
       | Date tenant moved to the UK | 31/12/1959        |
       | Place of birth              | Spain             |
