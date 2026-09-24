@@ -6,21 +6,21 @@ Feature: LCS - Landlords Checking Service
   Scenario: LSC - Property occupied page radio and Date validation check [TLF-108]
     Given I visit the Landlords checking service page
     And I navigate to "Does the person already live in your property?" page
-#  User selects 'Continue' without selecting a radio option then "Tell us whether the person already lives in your property" error message is displayed
+    #  User selects 'Continue' without selecting a radio option then "Tell us whether the person already lives in your property" error message is displayed
     When I select continue
     Then I should see "There is a problem" error message displayed
     And I should see "Tell us whether the person already lives in your property" error summary
-#  User selects 'Continue' without entering a date then "Tell us when the tenant moved into the property" error message is displayed
+    #  User selects 'Continue' without entering a date then "Tell us when the tenant moved into the property" error message is displayed
     When I select "Yes" and enter tenant move in date as ""
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "Tell us when the tenant moved into the property" error summary
-#  User selects 'Continue' after entering a date in the future then "This service only applies to tenants who moved in after 30 November 2014" error message is displayed
+    #  User selects 'Continue' after entering a date in the future then "This service only applies to tenants who moved in after 30 November 2014" error message is displayed
     When I select "Yes" and enter tenant move in date as "30/11/2014"
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "This service only applies to tenants who moved in after 30 November 2014" error summary
-#  User selects 'Continue' after entering a date in the future then "This date must not be in the future" error message is displayed
+    #  User selects 'Continue' after entering a date in the future then "This date must not be in the future" error message is displayed
     When I select "Yes" and enter tenant move in date as "tomorrow's date"
     And I select to continue
     Then I should see "There is a problem" error message displayed
@@ -53,7 +53,7 @@ Feature: LCS - Landlords Checking Service
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "Enter a real date of birth" error summary
-  #  User selects 'Continue' after entering date of birth that is after the date the tenant moved (moved in date is 11/11/2015)
+    #  User selects 'Continue' after entering date of birth that is after the date the tenant moved (moved in date is 11/11/2015)
     When I fill in the fields below with for tenant's details:
       | Full name              | HOF TEST   |
       | Date of birth          | 12/11/2015 |
@@ -69,11 +69,11 @@ Feature: LCS - Landlords Checking Service
   Scenario: LSC - Tenant's current address page field validation check [TLF-]
     Given I visit the Landlords checking service page
     And I navigate to "Tenant's current address" page
-  # User selects 'Continue' after leaving the Address line 1, Address Line 2 and Postcode fields blank
+    # User selects 'Continue' after leaving the Address line 1, Address Line 2 and Postcode fields blank
     When I select continue
     Then I should see "There is a problem" error message displayed
     And I should see "Enter address line 1, typically the building and street¬Enter a town or city¬Enter a postcode" error summary
-  # Postcode in an invalid UK format
+    # Postcode in an invalid UK format
     When I fill in the fields below with tenant's current address details:
       | Address Line 1 | 123     |
       | Address Line 2 | Dome    |
@@ -112,42 +112,42 @@ Feature: LCS - Landlords Checking Service
     When I select continue
     Then I should see "There is a problem" error message displayed
     And I should see "Enter a date the Tenant came to the UK¬Enter a place of birth¬Enter a National Insurance number¬Enter a telephone number" error summary
-#    Date tenant moved in 1988, NI number is less than 9 and less than 8 for telephone no
+    #    Date tenant moved in 1988, NI number is less than 9 and less than 8 for telephone no
     When I fill in the fields below with extra tenant's details:
-      | Date tenant moved to the UK | 31/12/1988   |
-      | Place of birth              | Spain        |
-      | National Insurance number   | AA12345C     |
-      | Email address               | tes@test.com |
-      | Telephone number            | 1234567      |
+      | Date tenant moved to the UK | 31/12/1988    |
+      | Place of birth              | Spain         |
+      | National Insurance number   | AA12345C      |
+      | Email address               | test@test.com |
+      | Telephone number            | 1234567       |
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "Date must be before 1988¬Enter a National Insurance number in the correct format¬Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192" error summary
-#    Date tenant moved later than 1988, NI number is more than 9 and more than 16 for telephone no
+    #    Date tenant moved later than 1988, NI number is more than 9 and more than 16 for telephone no
     When I fill in the fields below with extra tenant's details:
       | Date tenant moved to the UK | 01/01/1989        |
       | Place of birth              | Spain             |
       | National Insurance number   | AA1234567C        |
-      | Email address               | tes@test.com      |
+      | Email address               | test@test.com     |
       | Telephone number            | 12345678901234567 |
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "Date must be before 1988¬Enter a National Insurance number in the correct format¬Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192" error summary
-#    Date tenant moved date is before their date of birth(01/01/1960 ), NI number A, B, C or D as the 9th character and telephone no is more than 16 char
+    #    Date tenant moved date is before their date of birth(01/01/1960 ), NI number A, B, C or D as the 9th character and telephone no is more than 16 char
     When I fill in the fields below with extra tenant's details:
       | Date tenant moved to the UK | 31/12/1959        |
       | Place of birth              | Spain             |
       | National Insurance number   | AA123456E         |
-      | Email address               | tes@test.com      |
+      | Email address               | test@test.com     |
       | Telephone number            | 12345678901234567 |
     And I select to continue
     Then I should see "There is a problem" error message displayed
     And I should see "Date must be after the Tenant's date of birth. Enter a date after 01 January 1960¬Enter a National Insurance number in the correct format¬Enter a real telephone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192" error summary
-  #    Date tenant moved date is 120 years and Telephone number contains disallowed special characters or is in an invalid format
+    #    Date tenant moved date is 120 years and Telephone number contains disallowed special characters or is in an invalid format
     When I fill in the fields below with extra tenant's details:
       | Date tenant moved to the UK | more than 120 years ago |
       | Place of birth              | Spain                   |
       | National Insurance number   | SE123456A               |
-      | Email address               | tes@test.com            |
+      | Email address               | test@test.com           |
       | Telephone number            | *448081570192           |
     And I select to continue
     Then I should see "There is a problem" error message displayed
