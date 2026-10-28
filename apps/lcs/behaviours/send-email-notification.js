@@ -2,7 +2,7 @@ const config = require('../../../config');
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const notifyKey = config.govukNotify.notifyApiKey;
 const notifyClient = new NotifyClient(notifyKey);
-const moment = require('moment');
+const dayjs = require('dayjs');
 const { getLabel, shouldRedirectToBefore1988 } = require('../../../utils');
 
 module.exports = class SendEmailConfirmation {
@@ -20,10 +20,10 @@ module.exports = class SendEmailConfirmation {
       existing_occupier: getLabel('person-live-in', req.sessionModel.get('person-live-in')),
       is_existing_occupier: req.sessionModel.get('person-live-in'),
       person_moved_into_property: req.sessionModel.get('when-person-moved-in') ?
-        moment(req.sessionModel.get('when-person-moved-in')).format(config.PRETTY_DATE_FORMAT) : '',
+        dayjs(req.sessionModel.get('when-person-moved-in')).format(config.PRETTY_DATE_FORMAT) : '',
       ho_ref_number: req.sessionModel.get('ho-ref-number'),
       full_name: req.sessionModel.get('tenant-full-name'),
-      date_of_birth: moment(req.sessionModel.get('tenant-dob')).format(config.PRETTY_DATE_FORMAT),
+      date_of_birth: dayjs(req.sessionModel.get('tenant-dob')).format(config.PRETTY_DATE_FORMAT),
       country_of_nationality: req.sessionModel.get('tenant-nationality'),
       full_address: req.sessionModel.get('tenantAddress').join(', '),
       is_tenant_dob_before_1988: isTenantDobBefore1988 ? 'yes' : 'no',
@@ -32,7 +32,7 @@ module.exports = class SendEmailConfirmation {
       is_tenant_been_in_UK_before1988: isTenantDobBefore1988 &&
          req.sessionModel.get('in-uk-before-1988') === 'yes' ? 'yes' : 'no',
       date_of_entry: isTenantDobBefore1988 && req.sessionModel.get('date-tenant-moved-uk') ?
-        moment(req.sessionModel.get('date-tenant-moved-uk')).format(config.PRETTY_DATE_FORMAT) : '',
+        dayjs(req.sessionModel.get('date-tenant-moved-uk')).format(config.PRETTY_DATE_FORMAT) : '',
       place_of_birth: isTenantDobBefore1988 &&  req.sessionModel.get('extra-tenant-pob') ?
         req.sessionModel.get('extra-tenant-pob') : '',
       national_insurance_number: isTenantDobBefore1988 && req.sessionModel.get('extra-tenant-ni-num') ?
