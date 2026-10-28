@@ -4,7 +4,7 @@
   "description": "Request a right to rent check",
   "main": "index.js",
   "engines": {
-    "node": ">=24.21.0 <25.0.0"
+    "node": ">=24.22.1 <25.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/UKHomeOffice/landlords-checking-service#readme",
   "dependencies": {
     "@cucumber/cucumber": "^13.2.0",
-    "hof": "~24.5.0",
+    "hof": "~24.5.1",
     "accessible-autocomplete": "^3.0.1",
     "notifications-node-client": "^8.4.0"
   },
@@ -56,8 +56,10 @@
     "diff": "^8.0.3",
     "js-yaml": "^4.3.2",
     "morgan": "^1.12.0",
-    "qs": "^6.16.0",
+    "qs": "^6.16.1",
     "serialize-javascript": "^7.0.5",
-    "source-map-js": "^1.2.2"
+    "source-map-js": "^1.2.2",
+    "body-parser": "^2.4.0",
+    "markdown-it": "^15.0.3"
   }
 }

@@ -1,7 +1,7 @@
 
 'use strict';
 
-const moment = require('moment');
+const dayjs = require('dayjs');
 const { shouldRedirectToBefore1988 } = require('../../../utils');
 const PRETTY_DATE_FORMAT = 'DD MMMM YYYY';
 
@@ -19,7 +19,7 @@ module.exports = {
           if(req.sessionModel.get('person-live-in') === 'no') {
             return null;
           }
-          return value && moment(value).format(PRETTY_DATE_FORMAT);
+          return value && dayjs(value).format(PRETTY_DATE_FORMAT);
         }
       },
       {
@@ -33,7 +33,7 @@ module.exports = {
       {
         step: '/tenant-details',
         field: 'tenant-dob',
-        parse: d => d && moment(d).format(PRETTY_DATE_FORMAT)
+        parse: d => d && dayjs(d).format(PRETTY_DATE_FORMAT)
       },
       {
         step: '/tenant-details',
@@ -100,7 +100,7 @@ module.exports = {
           if (!shouldRedirectToBefore1988(req.sessionModel.get('tenant-dob'))) {
             return null;
           }
-          return value && moment(value).format(PRETTY_DATE_FORMAT);
+          return value && dayjs(value).format(PRETTY_DATE_FORMAT);
         }
       },
       {
