@@ -1,4 +1,4 @@
-const moment = require('moment');
+const dayjs = require('dayjs');
 
 module.exports = config => (fieldKey, localKey) => superclass => class extends superclass {
   successHandler(req, res, next) {
@@ -11,7 +11,7 @@ module.exports = config => (fieldKey, localKey) => superclass => class extends s
         valuesEnriched[localKey] = req.translate(`journey.tenantType.${fieldValue}`);
       }
       if (fieldKey === 'tenant-dob' || fieldKey === 'when-person-moved-in') {
-        valuesEnriched[localKey] = moment(fieldValue).format(config.PRETTY_DATE_FORMAT);
+        valuesEnriched[localKey] = dayjs(fieldValue).format(config.PRETTY_DATE_FORMAT);
       }
 
       req.sessionModel.set('valuesEnriched', valuesEnriched);
