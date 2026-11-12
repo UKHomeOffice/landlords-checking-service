@@ -32,7 +32,7 @@ delete_redis() {
 
 if [[ $1 == 'tear_down' ]]; then
   export KUBE_NAMESPACE=$BRANCH_ENV
-  export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt)
+  export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt | tr '[:upper:]' '[:lower:]' | tr '/.' '-')
   export REDIS_PERSISTENCE_ENABLED="false"
   export REDIS_PERSISTENCE_ACCESS_MODES=${REDIS_PERSISTENCE_ACCESS_MODES:-ReadWriteOnce}
   export REDIS_PERSISTENCE_STORAGE_CLASS=${REDIS_PERSISTENCE_STORAGE_CLASS:-}
@@ -47,7 +47,7 @@ if [[ $1 == 'tear_down' ]]; then
 fi
 
 export KUBE_NAMESPACE=$1
-export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
+export DRONE_SOURCE_BRANCH=$(printf '%s' "$DRONE_SOURCE_BRANCH" | tr '[:upper:]' '[:lower:]' | tr '/.' '-')
 
 export REDIS_PERSISTENCE_ENABLED=${REDIS_PERSISTENCE_ENABLED:-false}
 export REDIS_PERSISTENCE_ACCESS_MODES=${REDIS_PERSISTENCE_ACCESS_MODES:-ReadWriteOnce}
