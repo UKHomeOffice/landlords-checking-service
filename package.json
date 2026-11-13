@@ -34,10 +34,10 @@
     "hof": "~24.7.1",
     "accessible-autocomplete": "^3.0.2",
     "notifications-node-client": "^8.5.0",
-    "minimatch": "^11.0.1"
+    "minimatch": "^11.0.5"
   },
   "devDependencies": {
-    "@playwright/test": "1.63.0",
+    "@playwright/test": "1.65.0",
     "@types/node": "^26.1.1",
     "chai": "^6.2.2",
     "dotenv": "^17.4.2",
